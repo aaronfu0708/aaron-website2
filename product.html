@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="navbar-left">
+            <div class="menu-toggle" id="menuToggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </div>
+            <a href="#" class="icon-btn" id="searchToggle"><img src="search.png" alt="Search" class="icon-img"></a>
+        </div>
+        <div class="logo">
+            <a href="index.html" style="color:inherit; text-decoration:none;">AARON</a>
+        </div>
+        <div class="navbar-right">
+            <a href="login.html" class="icon-btn">
+                <img src="user.png" alt="User" class="icon-img">
+            </a>
+            <a href="cart.html" class="icon-btn">
+                <img src="cart.png" alt="Cart" class="icon-img">
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+        <nav class="nav-links" id="navLinks">
+            <button class="nav-close" id="navClose" aria-label="Close Menu">&times;</button>
+            <a href="index.html">Home</a>
+            <a href="product.html">Product</a>
+            <a href="about.html">About</a>
+            <a href="login.html">Login</a>
+            <a href="cart.html">Cart</a>
+            <a href="orders.html">Orders</a>
+        </nav>
+        <!-- 搜尋面板 -->
+        <div class="search-panel" id="searchPanel">
+            <button class="search-close" id="searchClose" aria-label="Close Search">&times;</button>
+            <div class="search-content">
+                <h2>搜尋商品</h2>
+                <div class="search-input-wrap">
+                    <input type="text" id="searchInput" placeholder="輸入關鍵字搜尋...">
+                    <button type="button" id="searchBtn">
+                        <img src="search.png" alt="Search" class="icon-img">
+                    </button>
+                </div>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+        </div>
+    </header>
+    <main class="products-section">
+        <h4>Vivienne Westwood</h4>
+        <div class="products">
+            <a class="product-link" href="product2.html?img1=vivi%2018.jpg&img2=vivi%2019.jpg&name=Diamante%20Heart%20Pendant%20Necklace&price=270">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="vivi 18.jpg" alt="Diamante Heart Pendant Necklace" />
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h3>Diamante Heart Pendant Necklace</h3>
+                    <p>$270</p>
+                </div>
+            </a>
+            <a class="product-link" href="product2.html?img1=vivi%2020.jpg&img2=vivi%2021.jpg&name=LAriella%20Pendant%20Necklace&price=185">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="vivi 20.jpg" alt="LAriella Pendant Necklace" />
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h3>LAriella Pendant Necklace</h3>
+                    <p>$185</p>
+                </div>
+            </a>
+            <a class="product-link" href="product2.html?img1=vivi%2022.jpg&img2=vivi%2023.jpg&name=Kitty%20Pendant%20Necklace&price=220">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="vivi 22.jpg" alt="Kitty Pendant Necklace" />
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h3>Kitty Pendant Necklace</h3>
+                    <p>$220</p>
+                </div>
+            </a>
+            <a class="product-link" href="product2.html?img1=vivi%2024.jpg&img2=vivi%2025.jpg&name=Ariella%20Pendant%20Necklace&price=200">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="vivi 24.jpg" alt="Ariella Pendant Necklace" />
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h3>Ariella Pendant Necklace</h3>
+                    <p>$200</p>
+                </div>
+            </a>
+            <a class="product-link" href="product2.html?img1=vivi%2030.jpg&img2=vivi%2031.jpg&name=Three%20Row%20Pearl%20Bas%20Relief%20Choker&price=695">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="vivi 30.jpg" alt="Three Row Pearl Bas Relief Choker" />
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h3>Three Row Pearl Bas Relief Choker</h3>
+                    <p>$695</p>
+                </div>
+            </a>
+            <a class="product-link" href="product2.html?img1=vivi%2032.jpg&img2=vivi%2033.jpg&name=Messaline%20Choker&price=270">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="vivi 32.jpg" alt="Messaline Choker" />
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h3>Messaline Choker</h3>
+                    <p>$270</p>
+                </div>
+            </a>
+            <a class="product-link" href="product2.html?img1=vivi%2034.jpg&img2=vivi%2035.jpg&name=Mini%20Bas%20Relief%20Pearl%20Choker&price=240">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="vivi 34.jpg" alt="Mini Bas Relief Pearl Choker" />
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h3>Mini Bas Relief Pearl Choker</h3>
+                    <p>$240</p>
+                </div>
+            </a>
+            <a class="product-link" href="product2.html?img1=vivi%2037.jpg&img2=vivi%2036.jpg&name=One%20Row%20Pearl%20Drop%20Choker&price=360">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="vivi 37.jpg" alt="One Row Pearl Drop Choker" />
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h3>One Row Pearl Drop Choker</h3>
+                    <p>$360</p>
+                </div>
+            </a>
+            <a class="product-link" href="product2.html?img1=vivi%202.jpg&img2=vivi%201.jpg&name=Lucrece%20Earrings&price=270">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="vivi 2.jpg" alt="Lucrece Earrings" />
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h3>Lucrece Earrings</h3>
+                    <p>$270</p>
+                </div>
+            </a>
+            <a class="product-link" href="product2.html?img1=vivi%208.jpg&img2=vivi%209.jpg&name=Man.%20Azul%20Necklace&price=395">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="vivi 8.jpg" alt="Man. Azul Necklace" />
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h3>Man. Azul Necklace</h3>
+                    <p>$395</p>
+                </div>
+            </a>
+            <a class="product-link" href="product2.html?img1=vivi%2010.jpg&img2=vivi%2011.jpg&name=Jackie%20Sunglasses&price=590">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="vivi 10.jpg" alt="Jackie Sunglasses" />
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h3>Jackie Sunglasses</h3>
+                    <p>$590</p>
+                </div>
+            </a>
+            <a class="product-link" href="product2.html?img1=vivi%2012.jpg&img2=vivi%2013.jpg&name=Costello%20Sunglasses&price=275">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="vivi 12.jpg" alt="Costello Sunglasses" />
+                        <div class="img-overlay"></div>
+                    </div>
+                    <h3>Costello Sunglasses</h3>
+                    <p>$275</p>
+                </div>
+            </a>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2025 Aaron Website</p>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>

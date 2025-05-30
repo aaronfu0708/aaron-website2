@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body {
+      background: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .login-section.custom-login {
+      flex: 1;
+      padding: 20px 0;
+      background: #fff;
+    }
+
+    .track-order {
+      margin-bottom: 20px;
+    }
+
+    .track-order i {
+      font-size: 1.6rem;
+    }
+    .track-title a{
+      border-bottom: 1px solid #505050;
+      text-decoration: none;
+    }
+    .login-features {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      padding: 0 20px;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .login-features div {
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    .login-features i {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .footer {
+      margin-top: auto;
+      padding: 15px 0;
+    }
+
+    #create-account-form {
+      display: none;
+    }
+
+    .form-message {
+      text-align: center;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    .form-message.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .form-message.error {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    .password-input-wrap {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .toggle-password:hover {
+      color: #222;
+    }
+
+    .input-group input[type="password"] {
+      padding-right: 30px;
+    }
+
+    @media (max-width: 768px) {
+      .login-section.custom-login {
+        padding: 15px 0;
+      }
+
+      .login-features {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 15px;
+      }
+
+      .login-features div {
+        font-size: 0.8rem;
+      }
+
+      .login-features i {
+        font-size: 1rem;
+      }
+
+      .track-order i {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="menu-toggle" id="menuToggle">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </div>
+      <a href="#" class="icon-btn"><img src="search.png" alt="Search" class="icon-img"></a>
+    </div>
+    <div class="logo">
+      <a href="index.html" style="color:inherit; text-decoration:none;">AARON</a>
+    </div>
+    <div class="navbar-right">
+      <a href="login.html" class="icon-btn">
+        <img src="user.png" alt="User" class="icon-img">
+      </a>
+      <a href="cart.html" class="icon-btn">
+        <img src="cart.png" alt="Cart" class="icon-img">
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <button class="nav-close" id="navClose" aria-label="Close Menu">&times;</button>
+      <a href="index.html">Home</a>
+      <a href="product.html">Product</a>
+      <a href="about.html">About</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart</a>
+      <a href="orders.html">Orders</a>
+    </nav>
+    <div class="search-panel" id="searchPanel">
+      <button class="search-close" id="searchClose" aria-label="Close Search">&times;</button>
+      <div class="search-content">
+        <h2>搜尋商品</h2>
+        <div class="search-input-wrap">
+          <input type="text" id="searchInput" placeholder="輸入關鍵字搜尋...">
+          <button type="button" id="searchBtn">
+            <img src="search.png" alt="Search" class="icon-img">
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="login-section custom-login">
+    <div class="track-order">
+      <i class="fas fa-box-open"></i>
+      <div class="track-title"><a href="orders.html">追蹤您的訂單</a></div>
+    </div>
+
+    <div class="login-card custom-card">
+      <div class="login-tabs">
+        <button class="tab active" id="tab-signin">登入</button>
+        <button class="tab" id="tab-create">建立帳戶</button>
+      </div>
+
+      <!-- 登入表單 -->
+      <form id="login-form">
+        <div class="input-group">
+          <label for="login-email">電子郵件</label>
+          <input type="email" id="login-email" required />
+        </div>
+        <div class="input-group">
+          <label for="login-password">密碼</label>
+          <div class="password-input-wrap">
+            <input type="password" id="login-password" required />
+            <button type="button" class="toggle-password" data-target="login-password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <div class="login-options">
+          <label class="remember-me">
+            <input type="checkbox" id="remember" />
+            記住我
+          </label>
+          <a href="#" class="forgot-link">忘記密碼？</a>
+        </div>
+        <button type="submit" id="login-btn" class="btn custom-btn">登入</button>
+        <div id="login-message" class="form-message"></div>
+      </form>
+
+      <!-- 建立帳戶表單 -->
+      <form id="create-account-form">
+        <div class="input-group">
+          <label for="create-name">姓名</label>
+          <input type="text" id="create-name" required />
+        </div>
+        <div class="input-group">
+          <label for="create-email">電子郵件</label>
+          <input type="email" id="create-email" required />
+        </div>
+        <div class="input-group">
+          <label for="create-password">密碼</label>
+          <div class="password-input-wrap">
+            <input type="password" id="create-password" required minlength="6" />
+            <button type="button" class="toggle-password" data-target="create-password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="create-password-confirm">確認密碼</label>
+          <div class="password-input-wrap">
+            <input type="password" id="create-password-confirm" required minlength="6" />
+            <button type="button" class="toggle-password" data-target="create-password-confirm">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="btn custom-btn">建立帳戶</button>
+        <div id="create-message" class="form-message"></div>
+      </form>
+    </div>
+
+    <div class="login-features">
+      <div><i class="fas fa-globe"></i><br>WORLDWIDE SHIPPING</div>
+      <div><i class="fas fa-seedling"></i><br>COMMITTED TO SUSTAINABILITY</div>
+      <div><i class="fas fa-shield-alt"></i><br>SAFE & SECURE PAYMENTS</div>
+      <div><i class="fas fa-magic"></i><br>MAKE IT LAST</div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Aaron Website</p>
+  </footer>
+
+  <!-- 先加载 main.js -->
+  <script src="main.js"></script>
+
+  <!-- 再加载登录相关的脚本 -->
+  <script>
+    // 表單切換
+    const tabSignin = document.getElementById('tab-signin');
+    const tabCreate = document.getElementById('tab-create');
+    const loginForm = document.getElementById('login-form');
+    const createForm = document.getElementById('create-account-form');
+
+    tabSignin.onclick = function() {
+      this.classList.add('active');
+      tabCreate.classList.remove('active');
+      loginForm.style.display = 'block';
+      createForm.style.display = 'none';
+    };
+
+    tabCreate.onclick = function() {
+      this.classList.add('active');
+      tabSignin.classList.remove('active');
+      loginForm.style.display = 'none';
+      createForm.style.display = 'block';
+    };
+
+    // 密碼顯示切換
+    document.querySelectorAll('.toggle-password').forEach(button => {
+      button.addEventListener('click', function() {
+        const targetId = this.dataset.target;
+        const input = document.getElementById(targetId);
+        const icon = this.querySelector('i');
+
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        } else {
+          input.type = 'password';
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
+        }
+      });
+    });
+
+    // 建立帳戶
+    createForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('create-name').value;
+      const email = document.getElementById('create-email').value;
+      const password = document.getElementById('create-password').value;
+      const confirmPassword = document.getElementById('create-password-confirm').value;
+      const message = document.getElementById('create-message');
+
+      if (password !== confirmPassword) {
+        message.textContent = '密碼不一致';
+        message.className = 'form-message error';
+        return;
+      }
+
+      // 檢查是否已存在
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      if (users.some(user => user.email === email)) {
+        message.textContent = '此電子郵件已被註冊';
+        message.className = 'form-message error';
+        return;
+      }
+
+      // 儲存用戶資料
+      users.push({ name, email, password });
+      localStorage.setItem('users', JSON.stringify(users));
+
+      message.textContent = '帳戶創建成功！請登入';
+      message.className = 'form-message success';
+      
+      // 清空表單
+      this.reset();
+      
+      // 3秒後切換到登入頁
+      setTimeout(() => {
+        tabSignin.click();
+      }, 3000);
+    });
+
+    // 登入
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const message = document.getElementById('login-message');
+
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const user = users.find(u => u.email === email && u.password === password);
+
+      if (user) {
+        message.textContent = '登入成功！';
+        message.className = 'form-message success';
+        
+        // 儲存登入狀態
+        localStorage.setItem('currentUser', JSON.stringify({
+          name: user.name,
+          email: user.email
+        }));
+
+        // 1秒後重定向到首頁
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1000);
+      } else {
+        message.textContent = '電子郵件或密碼錯誤';
+        message.className = 'form-message error';
+      }
+    });
+
+    // 檢查是否已登入
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+      // 已登入狀態，可以在這裡添加相應的處理
+    }
+  </script>
+</body>
+
+</html>

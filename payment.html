@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>付款 - AARON</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    .payment-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .payment-title {
+      font-size: 1.8rem;
+      font-weight: normal;
+      margin-bottom: 30px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .payment-steps {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 40px;
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto 40px auto;
+    }
+
+    .step {
+      text-align: center;
+      color: #999;
+      position: relative;
+      width: 120px;
+    }
+
+    .step.active {
+      color: #222;
+    }
+
+    .step i {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      display: block;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step div {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      position: relative;
+      z-index: 2;
+      padding: 0 10px;
+    }
+
+    .payment-methods {
+      margin-bottom: 30px;
+    }
+
+    .method-select {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .method-option {
+      border: 1px solid #ddd;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .method-option:hover {
+      border-color: #999;
+    }
+
+    .method-option.selected {
+      border-color: #222;
+      background: #f8f8f8;
+    }
+
+    .method-option i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #666;
+    }
+
+    .method-option.selected i {
+      color: #222;
+    }
+
+    .payment-form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #666;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus {
+      border-color: #222;
+      outline: none;
+    }
+
+    .card-info {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 15px;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: #000;
+      color: #fff;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 30px;
+    }
+
+    .submit-btn:hover {
+      background: #333;
+    }
+
+    .order-summary {
+      background: #f8f8f8;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      color: #666;
+    }
+
+    .summary-total {
+      font-size: 1.2rem;
+      color: #222;
+      font-weight: 500;
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+      margin-top: 15px;
+    }
+
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+      background: #fff;
+      border-radius: 4px;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.763L10.825 4z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      cursor: pointer;
+    }
+
+    .form-group select:focus {
+      border-color: #222;
+      outline: none;
+    }
+
+    .store-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      border-top: none;
+    }
+
+    .store-option {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: #fff;
+      user-select: none;
+    }
+
+    .store-option:hover {
+      border-color: #999;
+      background: #f9f9f9;
+    }
+
+    .store-option.selected {
+      border-color: #222;
+      background: #f8f8f8;
+    }
+
+    .store-option i {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+      color: #666;
+    }
+
+    .store-option.selected i {
+      color: #222;
+    }
+
+    .store-option span {
+      display: block;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .store-option.selected span {
+      color: #222;
+    }
+
+    .card-types {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .card-type {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: #fff;
+    }
+
+    .card-type:hover {
+      border-color: #999;
+      background: #f9f9f9;
+    }
+
+    .card-type.selected {
+      border-color: #222;
+      background: #f8f8f8;
+    }
+
+    .card-type i {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+      color: #666;
+    }
+
+    .card-type.selected i {
+      color: #222;
+    }
+
+    .card-type span {
+      display: block;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .card-type.selected span {
+      color: #222;
+    }
+
+    .card-type[data-card="ctbc"] i {
+      color: #004EA2;
+    }
+    
+    .card-type[data-card="visa"] i {
+      color: #1A1F71;
+    }
+    
+    .card-type[data-card="mastercard"] i {
+      color: #EB001B;
+    }
+    
+    .card-type[data-card="jcb"] i {
+      color: #019741;
+    }
+
+    .card-type.selected[data-card="ctbc"] i,
+    .card-type.selected[data-card="visa"] i,
+    .card-type.selected[data-card="mastercard"] i,
+    .card-type.selected[data-card="jcb"] i {
+      color: #222;
+    }
+
+    .bank-select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      background-color: #fff;
+      cursor: pointer;
+      color: #222;
+    }
+
+    .bank-select:focus {
+      border-color: #222;
+      outline: none;
+    }
+
+    .bank-info {
+      background: #fff;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .bank-account-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8f8f8;
+      padding: 16px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+
+    .bank-code {
+      font-family: monospace;
+      font-size: 1.1rem;
+      color: #666;
+      padding-right: 12px;
+      border-right: 1px solid #ddd;
+    }
+
+    .bank-account {
+      flex: 1;
+      background: transparent !important;
+      border: none !important;
+      font-family: monospace;
+      font-size: 1.1rem !important;
+      color: #222;
+      padding: 0 !important;
+    }
+
+    .bank-account:focus {
+      outline: none;
+    }
+
+    .copy-btn {
+      padding: 6px 12px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      color: #666;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      border-color: #999;
+      color: #333;
+    }
+
+    .copy-btn.copied {
+      background: #f0f9ff;
+      border-color: #90caf9;
+      color: #1976d2;
+    }
+
+    .bank-notice {
+      background: #fff;
+      padding: 20px;
+      border-radius: 4px;
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .bank-notice i {
+      color: #666;
+      font-size: 1.1rem;
+      margin-top: 2px;
+    }
+
+    .notice-content {
+      flex: 1;
+    }
+
+    .notice-content p {
+      margin: 0;
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    #orderNumber {
+      font-weight: bold;
+      color: #222;
+      font-family: monospace;
+    }
+
+    .bank-code-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .bank-code-input {
+      width: 80px !important;
+      text-align: center;
+      font-family: monospace;
+    }
+
+    .bank-name-input {
+      flex: 1;
+    }
+
+    @media (max-width: 768px) {
+      .payment-section {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px 12px;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      .payment-title {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+      }
+
+      .payment-steps {
+        padding: 0 20px;
+      }
+
+      .step {
+        width: 90px;
+      }
+
+      .step i {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+
+      .step div {
+        font-size: 0.85rem;
+        padding: 0 5px;
+      }
+
+      .method-select {
+        width: calc(100% - 8px);
+        margin: 0 4px 20px 4px;
+      }
+
+      .method-option {
+        padding: 15px;
+      }
+
+      .card-info {
+        grid-template-columns: 1fr;
+      }
+
+      .store-options {
+        grid-template-columns: repeat(2, 1fr);
+        width: calc(100% - 8px);
+        margin: 10px 4px 0 4px;
+      }
+
+      .store-option {
+        padding: 15px;
+      }
+
+      .store-option i {
+        font-size: 1.5rem;
+      }
+
+      .payment-form {
+        width: 100%;
+        padding: 0 4px;
+        margin: 0;
+      }
+
+      .order-summary {
+        width: calc(100% - 8px);
+        margin: 0 4px 20px 4px;
+      }
+
+      .card-types {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .bank-info {
+        margin: 15px 0;
+        padding: 15px;
+      }
+
+      .bank-notice {
+        padding: 12px;
+      }
+
+      .bank-account-group {
+        padding: 12px;
+        gap: 10px;
+      }
+
+      .bank-code {
+        padding-right: 10px;
+      }
+    }
+
+    .payment-steps {
+      margin: 30px auto;
+      padding: 0 30px;
+      max-width: 600px;
+    }
+
+    .payment-steps h3 {
+      margin: 0 0 25px 0;
+      font-size: 1.2rem;
+      color: #222;
+      padding-left: 15px;
+    }
+
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-right: 25px;
+      padding-left: 10px;
+      margin: 0 auto;
+      max-width: 500px;
+    }
+
+    .payment-step {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      width: 24px;
+      height: 24px;
+      background: #222;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .step-content h4 {
+      margin: 0 0 5px 0;
+      font-size: 1rem;
+      color: #222;
+    }
+
+    .step-content p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .payment-notice {
+      background: #fff3e0;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .notice-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: #e65100;
+      font-size: 0.9rem;
+    }
+
+    .notice-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .notice-item i {
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .payment-steps {
+        margin: 20px 0;
+        padding: 0 20px;
+      }
+
+      .payment-steps h3 {
+        font-size: 1rem;
+        margin: 0 0 15px 0;
+        padding-left: 5px;
+      }
+
+      .step-list {
+        gap: 15px;
+        padding-right: 15px;
+        padding-left: 5px;
+      }
+
+      .payment-step {
+        gap: 12px;
+      }
+
+      .step-number {
+        width: 20px;
+        height: 20px;
+        font-size: 0.8rem;
+      }
+
+      .step-content h4 {
+        font-size: 0.95rem;
+      }
+
+      .step-content p {
+        font-size: 0.85rem;
+      }
+
+      .payment-notice {
+        padding: 12px;
+      }
+
+      .notice-item {
+        font-size: 0.85rem;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="menu-toggle" id="menuToggle">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </div>
+      <a href="#" class="icon-btn"><img src="search.png" alt="Search" class="icon-img"></a>
+    </div>
+    <div class="logo">
+      <a href="index.html" style="color:inherit; text-decoration:none;">AARON</a>
+    </div>
+    <div class="navbar-right">
+      <a href="login.html" class="icon-btn">
+        <img src="user.png" alt="User" class="icon-img">
+      </a>
+      <a href="cart.html" class="icon-btn">
+        <img src="cart.png" alt="Cart" class="icon-img">
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <button class="nav-close" id="navClose" aria-label="Close Menu">&times;</button>
+      <a href="index.html">Home</a>
+      <a href="product.html">Product</a>
+      <a href="about.html">About</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart</a>
+      <a href="orders.html">Orders</a>
+    </nav>
+    <div class="search-panel" id="searchPanel">
+      <button class="search-close" id="searchClose" aria-label="Close Search">&times;</button>
+      <div class="search-content">
+        <h2>搜尋商品</h2>
+        <div class="search-input-wrap">
+          <input type="text" id="searchInput" placeholder="輸入關鍵字搜尋...">
+          <button type="button" id="searchBtn">
+            <img src="search.png" alt="Search" class="icon-img">
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="payment-section">
+    <h1 class="payment-title">付款資訊</h1>
+
+    <div class="payment-steps">
+      <div class="step">
+        <i class="fas fa-shopping-cart"></i>
+        <div>購物車</div>
+      </div>
+      
+      <div class="step active">
+        <i class="fas fa-credit-card"></i>
+        <div>付款</div>
+      </div>
+      
+      <div class="step">
+        <i class="fas fa-check-circle"></i>
+        <div>完成</div>
+      </div>
+    </div>
+
+    <div class="order-summary">
+      <div class="summary-row">
+        <span>小計</span>
+        <span id="subtotal">$0</span>
+      </div>
+      <div class="summary-row">
+        <span>運費</span>
+        <span id="shipping">$0</span>
+      </div>
+      <div class="summary-row summary-total">
+        <span>總計</span>
+        <span id="total">$0</span>
+      </div>
+    </div>
+
+    <div class="payment-methods">
+      <div class="method-select">
+        <div class="method-option selected" data-method="credit">
+          <i class="fas fa-credit-card"></i>
+          <div>信用卡</div>
+        </div>
+        <div class="method-option" data-method="bank">
+          <i class="fas fa-university"></i>
+          <div>銀行轉帳</div>
+        </div>
+        <div class="method-option" data-method="convenience">
+          <i class="fas fa-store"></i>
+          <div>超商付款</div>
+        </div>
+      </div>
+
+      <div class="payment-form">
+        <div id="credit-card-form">
+          <div class="form-group">
+            <label>選擇卡片類型</label>
+            <div class="card-types">
+              <div class="card-type selected" data-card="visa">
+                <i class="fab fa-cc-visa"></i>
+                <span>VISA</span>
+              </div>
+              <div class="card-type" data-card="mastercard">
+                <i class="fab fa-cc-mastercard"></i>
+                <span>MasterCard</span>
+              </div>
+              <div class="card-type" data-card="jcb">
+                <i class="fab fa-cc-jcb"></i>
+                <span>JCB</span>
+              </div>
+              <div class="card-type" data-card="ctbc">
+                <i class="fas fa-credit-card"></i>
+                <span>中國信託</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>持卡人姓名</label>
+            <input type="text" id="cardName" placeholder="請輸入持卡人姓名">
+          </div>
+          <div class="form-group">
+            <label>卡號</label>
+            <input type="text" id="cardNumber" placeholder="xxxx xxxx xxxx xxxx" maxlength="19">
+          </div>
+          <div class="card-info">
+            <div class="form-group">
+              <label>有效期限</label>
+              <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
+            </div>
+            <div class="form-group">
+              <label>CVV</label>
+              <input type="text" id="cardCvv" placeholder="xxx" maxlength="3">
+            </div>
+          </div>
+        </div>
+
+        <div id="bank-form" style="display: none;">
+          <div class="form-group">
+            <label>選擇銀行</label>
+            <select id="bankSelect" class="bank-select">
+              <option value="">請選擇銀行</option>
+              <option value="004" selected>004 臺灣銀行</option>
+              <option value="005">005 土地銀行</option>
+              <option value="006">006 合作金庫</option>
+              <option value="007">007 第一銀行</option>
+              <option value="008">008 華南銀行</option>
+              <option value="009">009 彰化銀行</option>
+              <option value="012">012 台北富邦</option>
+              <option value="013">013 國泰世華</option>
+              <option value="700">700 郵局</option>
+              <option value="822">822 中國信託</option>
+              <option value="other">其他銀行</option>
+            </select>
+          </div>
+
+          <div id="otherBankInput" class="form-group" style="display: none;">
+            <label>銀行名稱</label>
+            <div class="bank-code-group">
+              <input type="text" id="bankCode" placeholder="銀行代碼" maxlength="3" class="bank-code-input">
+              <input type="text" id="bankName" placeholder="銀行名稱" class="bank-name-input">
+            </div>
+          </div>
+
+          <div class="bank-info">
+            <div class="form-group">
+              <label>轉入帳號</label>
+              <div class="bank-account-group">
+                <span class="bank-code">700</span>
+                <input type="text" id="accountNumber" readonly value="01410740383551" class="bank-account">
+                <button type="button" class="copy-btn" data-copy="accountNumber">
+                  <i class="fas fa-copy"></i>
+                  複製帳號
+                </button>
+              </div>
+            </div>
+
+            <div class="bank-notice">
+              <i class="fas fa-info-circle"></i>
+              <div class="notice-content">
+                <p>系統將在1-2個工作天內確認款項。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>轉帳後5碼</label>
+            <input type="text" id="transferCode" placeholder="請輸入轉帳後5碼" maxlength="5">
+          </div>
+        </div>
+
+        <div id="convenience-form" style="display: none;">
+          <div class="form-group">
+            <label>超商選擇</label>
+            <div class="store-options">
+              <div class="store-option selected" data-store="711">
+                <i class="fas fa-store"></i>
+                <span>7-ELEVEN</span>
+              </div>
+              <div class="store-option" data-store="family">
+                <i class="fas fa-store"></i>
+                <span>全家便利商店</span>
+              </div>
+              <div class="store-option" data-store="hilife">
+                <i class="fas fa-store"></i>
+                <span>萊爾富</span>
+              </div>
+              <div class="store-option" data-store="ok">
+                <i class="fas fa-store"></i>
+                <span>OK超商</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" id="submitPayment" class="submit-btn">確認付款</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Aaron Website</p>
+  </footer>
+
+  <script>
+    // 付款方式切換
+    document.querySelectorAll('.method-option').forEach(option => {
+      option.addEventListener('click', function() {
+        // 更新選中狀態
+        document.querySelectorAll('.method-option').forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+        
+        // 顯示對應表單
+        const method = this.dataset.method;
+        document.getElementById('credit-card-form').style.display = method === 'credit' ? 'block' : 'none';
+        document.getElementById('bank-form').style.display = method === 'bank' ? 'block' : 'none';
+        document.getElementById('convenience-form').style.display = method === 'convenience' ? 'block' : 'none';
+      });
+    });
+
+    // 載入訂單資訊
+    function loadOrderSummary() {
+      try {
+        // 檢查是否有結帳資訊
+        const checkoutInfo = JSON.parse(localStorage.getItem('checkoutInfo'));
+        console.log('checkoutInfo:', checkoutInfo); // 調試用
+        
+        if (!checkoutInfo) {
+          console.log('No checkout info found'); // 調試用
+          window.location.href = 'cart.html';
+          return;
+        }
+
+        // 檢查購物車是否為空
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        if (cart.length === 0) {
+          console.log('Cart is empty'); // 調試用
+          window.location.href = 'cart.html';
+          return;
+        }
+        
+        // 顯示訂單金額
+        const subtotal = document.getElementById('subtotal');
+        const shipping = document.getElementById('shipping');
+        const total = document.getElementById('total');
+        
+        if (subtotal && shipping && total) {
+          subtotal.textContent = `$${checkoutInfo.subtotal.toLocaleString()}`;
+          shipping.textContent = `$${checkoutInfo.shipping.toLocaleString()}`;
+          total.textContent = `$${checkoutInfo.total.toLocaleString()}`;
+          console.log('Prices updated'); // 調試用
+        } else {
+          console.log('Price elements not found'); // 調試用
+        }
+      } catch (error) {
+        console.error('Error loading order summary:', error);
+      }
+    }
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM Content Loaded'); // 調試用
+      loadOrderSummary();
+    });
+
+    // 超商選擇功能
+    document.querySelectorAll('.store-option').forEach(store => {
+      store.addEventListener('click', function() {
+        document.querySelectorAll('.store-option').forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+
+    // 卡片類型選擇功能
+    document.querySelectorAll('.card-type').forEach(card => {
+      card.addEventListener('click', function() {
+        document.querySelectorAll('.card-type').forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+        
+        // 重置卡號輸入欄位
+        const cardNumberInput = document.getElementById('cardNumber');
+        cardNumberInput.maxLength = 19; // 16位數字 + 3個空格
+        cardNumberInput.placeholder = 'xxxx xxxx xxxx xxxx';
+        cardNumberInput.value = '';
+      });
+    });
+
+    // 信用卡號格式化
+    document.getElementById('cardNumber').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\s/g, '').replace(/\D/g, '');
+      let formatted = '';
+      
+      // 所有卡片統一使用 4-4-4-4 格式
+      for (let i = 0; i < value.length; i++) {
+        if (i > 0 && i % 4 === 0) formatted += ' ';
+        formatted += value[i];
+      }
+      e.target.value = formatted;
+    });
+
+    // 有效期限格式化
+    document.getElementById('cardExpiry').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 2) {
+        value = value.substr(0, 2) + '/' + value.substr(2);
+      }
+      e.target.value = value;
+    });
+
+    // 複製功能
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetId = this.dataset.copy;
+        const targetElement = document.getElementById(targetId);
+        
+        navigator.clipboard.writeText(targetElement.value).then(() => {
+          this.classList.add('copied');
+          const originalHTML = this.innerHTML;
+          this.innerHTML = '<i class="fas fa-check"></i> 已複製';
+          
+          setTimeout(() => {
+            this.classList.remove('copied');
+            this.innerHTML = originalHTML;
+          }, 1500);
+        });
+      });
+    });
+
+    // 轉帳後5碼只能輸入數字
+    document.getElementById('transferCode').addEventListener('input', function(e) {
+      this.value = this.value.replace(/\D/g, '');
+    });
+
+    // 銀行選擇處理
+    document.getElementById('bankSelect').addEventListener('change', function() {
+      const otherBankInput = document.getElementById('otherBankInput');
+      if (this.value === 'other') {
+        otherBankInput.style.display = 'block';
+      } else {
+        otherBankInput.style.display = 'none';
+      }
+    });
+
+    // 銀行代碼只能輸入數字
+    document.getElementById('bankCode').addEventListener('input', function(e) {
+      this.value = this.value.replace(/\D/g, '');
+    });
+
+    // 確認付款按鈕點擊處理
+    document.getElementById('submitPayment').addEventListener('click', function() {
+      const selectedMethod = document.querySelector('.method-option.selected').dataset.method;
+      
+      if (selectedMethod === 'credit') {
+        const cardType = document.querySelector('.card-type.selected').dataset.card;
+        const cardName = document.getElementById('cardName').value;
+        const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+        const cardExpiry = document.getElementById('cardExpiry').value;
+        const cardCvv = document.getElementById('cardCvv').value;
+        
+        if (!cardName || !cardNumber || !cardExpiry || !cardCvv) {
+          alert('請填寫完整的信用卡資訊');
+          return;
+        }
+
+        if (cardNumber.length !== 16) {
+          alert('請輸入正確的卡號');
+          return;
+        }
+
+        if (cardCvv.length !== 3) {
+          alert('請輸入正確的CVV碼');
+          return;
+        }
+      } else if (selectedMethod === 'bank') {
+        const bankSelect = document.getElementById('bankSelect').value;
+        const transferCode = document.getElementById('transferCode').value;
+        
+        if (!bankSelect) {
+          alert('請選擇銀行');
+          return;
+        }
+        
+        if (bankSelect === 'other') {
+        const bankCode = document.getElementById('bankCode').value;
+          const bankName = document.getElementById('bankName').value;
+        
+          if (!bankCode || bankCode.length !== 3) {
+            alert('請輸入正確的銀行代碼（3碼）');
+            return;
+          }
+          
+          if (!bankName) {
+            alert('請輸入銀行名稱');
+            return;
+          }
+        }
+        
+        if (!transferCode || transferCode.length !== 5) {
+          alert('請輸入正確的轉帳後5碼');
+          return;
+        }
+      }
+      
+      // 獲取結帳資訊
+      const checkoutInfo = JSON.parse(localStorage.getItem('checkoutInfo')) || {};
+      
+      // 準備訂單資訊
+      const orderInfo = {
+        method: selectedMethod,
+        total: checkoutInfo.total || 0,
+        subtotal: checkoutInfo.subtotal || 0,
+        shipping: checkoutInfo.shipping || 0,
+        date: new Date().toISOString()
+      };
+      
+      // 如果是超商付款，添加超商資訊
+      if (selectedMethod === 'convenience') {
+        const selectedStore = document.querySelector('.store-option.selected');
+        if (selectedStore) {
+          orderInfo.store = selectedStore.dataset.store;
+          orderInfo.storeName = selectedStore.querySelector('span').textContent;
+        }
+      }
+      
+      // 儲存訂單資訊
+      localStorage.setItem('lastOrder', JSON.stringify(orderInfo));
+      
+      // 清空購物車和結帳資訊
+      localStorage.removeItem('cart');
+      localStorage.removeItem('checkoutInfo');
+      
+      // 跳轉到完成頁面
+      window.location.href = 'order-complete.html';
+    });
+  </script>
+  <script src="main.js"></script>
+</body>
+
+</html> 

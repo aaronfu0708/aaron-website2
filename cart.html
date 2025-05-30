@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>購物車 - AARON</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    .cart-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .cart-title {
+      font-size: 1.8rem;
+      font-weight: normal;
+      margin-bottom: 30px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 60px 20px;
+      display: none;
+    }
+
+    .cart-empty i {
+      font-size: 3rem;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .cart-empty p {
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .cart-empty .continue-shopping {
+      display: inline-block;
+      padding: 12px 30px;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .cart-empty .continue-shopping:hover {
+      background: #333;
+    }
+
+    .cart-items {
+      margin-bottom: 40px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 120px 1fr auto auto;
+      gap: 24px;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+      position: relative;
+    }
+
+    .cart-item-img {
+      width: 120px;
+      height: 140px;
+      object-fit: cover;
+    }
+
+    .cart-item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cart-item-name {
+      font-size: 1.1rem;
+      color: #222;
+    }
+
+    .cart-item-size {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .cart-item-price {
+      font-size: 1rem;
+      color: #222;
+    }
+
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #ddd;
+      background: #fff;
+      color: #222;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .qty-btn:hover {
+      background: #f5f5f5;
+    }
+
+    .qty-num {
+      width: 40px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .cart-item-total {
+      font-size: 1.1rem;
+      color: #222;
+      min-width: 80px;
+      text-align: right;
+    }
+
+    .cart-item-remove {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: #999;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .cart-item-remove:hover {
+      color: #ff4444;
+    }
+
+    .cart-summary {
+      background: #f8f8f8;
+      padding: 30px;
+      margin-top: 40px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      color: #666;
+    }
+
+    .summary-total {
+      font-size: 1.2rem;
+      color: #222;
+      font-weight: 500;
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+      margin-top: 15px;
+    }
+
+    .checkout-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: #000;
+      color: #fff;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 20px;
+    }
+
+    .checkout-btn:hover {
+      background: #333;
+    }
+
+    @media (max-width: 768px) {
+      .cart-section {
+        padding: 20px 12px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      .cart-title {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+        padding: 0 4px;
+      }
+
+      .cart-item {
+        grid-template-columns: 80px 1fr;
+        gap: 15px;
+        padding: 15px;
+        width: calc(100% - 8px);
+        margin: 0 4px 15px 4px;
+      }
+
+      .cart-item-img {
+        width: 80px;
+        height: 100px;
+      }
+
+      .cart-item-info {
+        gap: 4px;
+      }
+
+      .cart-item-name {
+        font-size: 0.95rem;
+      }
+
+      .cart-item-size {
+        font-size: 0.85rem;
+      }
+
+      .cart-item-price {
+        font-size: 0.9rem;
+      }
+
+      .cart-item-qty {
+        margin-top: 10px;
+      }
+
+      .cart-item-total {
+        font-size: 1rem;
+        grid-column: 2;
+        text-align: left;
+        margin-top: 10px;
+      }
+
+      .cart-item-remove {
+        top: 15px;
+        right: 15px;
+      }
+
+      .cart-summary {
+        padding: 20px;
+        margin: 30px 4px;
+        width: calc(100% - 8px);
+      }
+
+      .summary-row {
+        font-size: 0.95rem;
+      }
+
+      .summary-total {
+        font-size: 1.1rem;
+      }
+
+      .checkout-btn {
+        padding: 12px;
+        font-size: 1rem;
+        width: calc(100% - 8px);
+        margin: 20px 4px;
+      }
+
+      .cart-actions {
+        padding: 0 4px;
+        margin: 15px 4px;
+      }
+
+      .empty-cart {
+        padding: 0 4px;
+        margin: 15px 4px;
+        width: calc(100% - 8px);
+      }
+    }
+
+    /* 購物車數量標記樣式 */
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ff4444;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    .icon-btn {
+      position: relative;
+    }
+
+    /* 清空購物車按鈕樣式 */
+    .cart-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin: 20px 0;
+    }
+
+    .clear-cart-btn {
+      background: none;
+      border: 1px solid #ddd;
+      color: #666;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .clear-cart-btn:hover {
+      border-color: #ff4444;
+      color: #ff4444;
+    }
+
+    .clear-cart-btn:active {
+      background: #f8f8f8;
+    }
+
+    .clear-cart-btn i {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .cart-actions {
+        margin: 15px 0;
+      }
+
+      .clear-cart-btn {
+        width: auto;
+        padding: 8px 12px;
+        margin: 0 auto;
+        border-radius: 4px;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* 確認對話框樣式 */
+    .confirm-dialog {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .confirm-content {
+      background: white;
+      padding: 24px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 320px;
+      text-align: center;
+    }
+
+    .confirm-title {
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      color: #222;
+    }
+
+    .confirm-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .confirm-btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      min-width: 100px;
+    }
+
+    .confirm-cancel {
+      background: #f5f5f5;
+      color: #666;
+      border: 1px solid #ddd;
+    }
+
+    .confirm-cancel:hover {
+      background: #eee;
+      border-color: #ccc;
+    }
+
+    .confirm-ok {
+      background: #333;
+      color: white;
+      border: 1px solid #333;
+    }
+
+    .confirm-ok:hover {
+      background: #404040;
+      border-color: #404040;
+    }
+
+    .confirm-ok:active {
+      transform: scale(0.98);
+    }
+
+    .confirm-cancel:active {
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 768px) {
+      .confirm-content {
+        width: 85%;
+        padding: 20px;
+      }
+
+      .confirm-btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="menu-toggle" id="menuToggle">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </div>
+      <a href="#" class="icon-btn" id="searchToggle"><img src="search.png" alt="Search" class="icon-img"></a>
+    </div>
+    <div class="logo">
+      <a href="index.html" style="color:inherit; text-decoration:none;">AARON</a>
+    </div>
+    <div class="navbar-right">
+      <a href="login.html" class="icon-btn">
+        <img src="user.png" alt="User" class="icon-img">
+      </a>
+      <a href="cart.html" class="icon-btn">
+        <img src="cart.png" alt="Cart" class="icon-img">
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <button class="nav-close" id="navClose" aria-label="Close Menu">&times;</button>
+      <a href="index.html">Home</a>
+      <a href="product.html">Product</a>
+      <a href="about.html">About</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart</a>
+      <a href="orders.html">Orders</a>
+    </nav>
+    <!-- 搜尋面板 -->
+    <div class="search-panel" id="searchPanel">
+      <button class="search-close" id="searchClose" aria-label="Close Search">&times;</button>
+      <div class="search-content">
+        <h2>搜尋商品</h2>
+        <div class="search-input-wrap">
+          <input type="text" id="searchInput" placeholder="輸入關鍵字搜尋...">
+          <button type="button" id="searchBtn">
+            <img src="search.png" alt="Search" class="icon-img">
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="cart-section">
+    <h1 class="cart-title">購物車</h1>
+    
+    <div class="cart-empty" id="cartEmpty">
+      <i class="fas fa-shopping-cart"></i>
+      <p>您的購物車是空的</p>
+      <a href="product.html" class="continue-shopping">繼續購物</a>
+    </div>
+
+    <div class="cart-content" id="cartContent">
+      <div class="cart-items" id="cartItems">
+        <!-- Cart items will be dynamically added here -->
+      </div>
+
+      <div class="cart-actions">
+        <button type="button" class="clear-cart-btn" id="clearCartBtn">
+          <i class="fas fa-trash-alt"></i>
+          清空購物車
+        </button>
+      </div>
+
+      <div class="cart-summary">
+        <div class="summary-row">
+          <span>小計</span>
+          <span id="subtotal">$0</span>
+        </div>
+        <div class="summary-row">
+          <span>運費</span>
+          <span id="shipping">$0</span>
+        </div>
+        <div class="summary-row summary-total">
+          <span>總計</span>
+          <span id="total">$0</span>
+        </div>
+        <button class="checkout-btn" id="checkoutBtn">結帳</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Aaron Website</p>
+  </footer>
+
+  <div class="confirm-dialog" id="confirmDialog">
+    <div class="confirm-content">
+      <div class="confirm-title">確定要清空購物車嗎？</div>
+      <div class="confirm-buttons">
+        <button class="confirm-btn confirm-cancel" id="confirmCancel">取消</button>
+        <button class="confirm-btn confirm-ok" id="confirmOk">確定</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 購物車功能實現
+    document.addEventListener('DOMContentLoaded', function() {
+      const cartItems = document.getElementById('cartItems');
+      const cartEmpty = document.getElementById('cartEmpty');
+      const cartContent = document.getElementById('cartContent');
+      const subtotalEl = document.getElementById('subtotal');
+      const shippingEl = document.getElementById('shipping');
+      const totalEl = document.getElementById('total');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+
+      function updateCart() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // 更新購物車數量標記
+        const cartCount = document.getElementById('cartCount');
+        if (cartCount) {
+          const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+          cartCount.textContent = totalItems;
+          cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+        }
+        
+        if (cart.length === 0) {
+          cartEmpty.style.display = 'block';
+          cartContent.style.display = 'none';
+          return;
+        }
+
+        cartEmpty.style.display = 'none';
+        cartContent.style.display = 'block';
+        
+        // 清空購物車內容
+        cartItems.innerHTML = '';
+        
+        // 計算總價
+        let subtotal = 0;
+        
+        // 添加購物車項目
+        cart.forEach((item, index) => {
+          const itemTotal = Number(item.price) * Number(item.qty);
+          subtotal += itemTotal;
+          
+          const cartItem = document.createElement('div');
+          cartItem.className = 'cart-item';
+          cartItem.innerHTML = `
+            <img src="${item.img}" alt="${item.name}" class="cart-item-img">
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.name}</div>
+              <div class="cart-item-size">尺寸：${item.size}</div>
+              <div class="cart-item-price">$${Number(item.price).toLocaleString()}</div>
+            </div>
+            <div class="cart-item-qty">
+              <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
+              <span class="qty-num">${item.qty}</span>
+              <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+            </div>
+            <div class="cart-item-total">$${itemTotal.toLocaleString()}</div>
+            <button class="cart-item-remove" onclick="removeItem(${index})">
+              <i class="fas fa-times"></i>
+            </button>
+          `;
+          
+          cartItems.appendChild(cartItem);
+        });
+        
+        // 更新總價
+        const shipping = subtotal >= 1000 ? 0 : 100;
+        const total = subtotal + shipping;
+        
+        subtotalEl.textContent = `$${subtotal.toLocaleString()}`;
+        shippingEl.textContent = `$${shipping.toLocaleString()}`;
+        totalEl.textContent = `$${total.toLocaleString()}`;
+
+        // 將金額存入 localStorage 供其他頁面使用
+        const checkoutInfo = {
+          subtotal: subtotal,
+          shipping: shipping,
+          total: total
+        };
+        localStorage.setItem('checkoutInfo', JSON.stringify(checkoutInfo));
+      }
+
+      // 更新數量
+      window.updateQuantity = function(index, change) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        if (cart[index]) {
+          cart[index].qty = Math.max(1, cart[index].qty + change);
+          localStorage.setItem('cart', JSON.stringify(cart));
+          updateCart();
+        }
+      };
+
+      // 移除商品
+      window.removeItem = function(index) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCart();
+      };
+
+      // 處理結帳
+      checkoutBtn.addEventListener('click', function() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        if (cart.length === 0) {
+          alert('購物車是空的');
+          return;
+        }
+        
+        // 使用已經在 updateCart 中更新的 checkoutInfo
+        const checkoutInfo = JSON.parse(localStorage.getItem('checkoutInfo'));
+        if (!checkoutInfo) {
+          alert('結帳資訊錯誤，請重新整理頁面');
+          return;
+        }
+        
+        // 跳轉到付款頁面
+        window.location.href = 'payment.html';
+      });
+
+      // 初始化購物車
+      updateCart();
+
+      // 清空購物車
+      const clearCartBtn = document.getElementById('clearCartBtn');
+      const confirmDialog = document.getElementById('confirmDialog');
+      const confirmCancel = document.getElementById('confirmCancel');
+      const confirmOk = document.getElementById('confirmOk');
+
+      clearCartBtn.addEventListener('click', function() {
+        confirmDialog.style.display = 'flex';
+      });
+
+      // 取消按鈕
+      confirmCancel.addEventListener('click', function() {
+        confirmDialog.style.display = 'none';
+      });
+
+      // 確認按鈕
+      confirmOk.addEventListener('click', function() {
+          localStorage.removeItem('cart');
+          updateCart();
+        confirmDialog.style.display = 'none';
+      });
+
+      // 點擊背景關閉對話框
+      confirmDialog.addEventListener('click', function(e) {
+        if (e.target === confirmDialog) {
+          confirmDialog.style.display = 'none';
+        }
+      });
+
+      // 添加觸控事件支援
+      let touchStartY;
+
+      clearCartBtn.addEventListener('touchstart', function(e) {
+        touchStartY = e.touches[0].clientY;
+        this.style.transform = 'scale(0.98)';
+      });
+
+      clearCartBtn.addEventListener('touchend', function() {
+        this.style.transform = 'scale(1)';
+        const touchEndY = event.changedTouches[0].clientY;
+        const touchDiff = Math.abs(touchEndY - touchStartY);
+        
+        // 如果滑動距離小於 10px，才觸發點擊
+        if (touchDiff < 10) {
+          confirmDialog.style.display = 'flex';
+        }
+      });
+    });
+  </script>
+  <script src="main.js"></script>
+</body>
+
+</html>

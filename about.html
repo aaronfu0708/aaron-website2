@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - Vivienne Westwood</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    .about-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    .about-hero {
+      position: relative;
+      width: 100%;
+      height: 60vh;
+      margin-bottom: 60px;
+    }
+
+    .about-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-hero-text {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .about-hero-text h1 {
+      font-size: 2.5rem;
+      font-weight: normal;
+      margin-bottom: 10px;
+    }
+
+    .about-hero-text p {
+      font-size: 1.2rem;
+      max-width: 600px;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+
+    .about-text h2 {
+      font-size: 1.8rem;
+      font-weight: normal;
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+
+    .timeline-section {
+      padding: 80px 0;
+      background: #fff;
+    }
+
+    .timeline-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 50px;
+      border-left: 1px solid #ddd;
+    }
+
+    .timeline-year {
+      font-size: 1.2rem;
+      color: #000;
+      margin-bottom: 10px;
+      font-weight: 300;
+    }
+
+    .timeline-content h3 {
+      font-size: 1.1rem;
+      font-weight: normal;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .timeline-content p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #666;
+    }
+
+    .timeline-item:before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 0;
+      width: 7px;
+      height: 7px;
+      background: #000;
+      border-radius: 50%;
+    }
+
+    .values-section {
+      text-align: center;
+      padding: 60px 0;
+      background: #fff;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 40px;
+    }
+
+    .value-item {
+      text-align: center;
+    }
+
+    .value-item i {
+      font-size: 2.5rem;
+      color: #bfa37c;
+      margin-bottom: 20px;
+    }
+
+    .value-item h3 {
+      font-size: 1.3rem;
+      font-weight: normal;
+      margin-bottom: 15px;
+    }
+
+    .value-item p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .about-section {
+        padding: 30px 15px;
+      }
+
+      .about-hero {
+        height: 40vh;
+        margin-bottom: 30px;
+      }
+
+      .about-hero-text {
+        bottom: 20px;
+        left: 20px;
+      }
+
+      .about-hero-text h1 {
+        font-size: 1.5rem;
+      }
+
+      .about-hero-text p {
+        font-size: 0.9rem;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin-bottom: 40px;
+      }
+
+      .about-text h2 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+      }
+
+      .about-text p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+
+      .timeline-container {
+        padding: 0 15px;
+      }
+
+      .timeline-item {
+        padding-left: 20px;
+        margin-bottom: 30px;
+      }
+
+      .timeline-year {
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+      }
+
+      .timeline-content h3 {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+      }
+
+      .timeline-content p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 0 15px;
+      }
+
+      .value-item h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+
+      .value-item p {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="menu-toggle" id="menuToggle">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </div>
+      <a href="#" class="icon-btn" id="searchToggle"><img src="search.png" alt="Search" class="icon-img"></a>
+    </div>
+    <div class="logo">
+      <a href="index.html" style="color:inherit; text-decoration:none;">AARON</a>
+    </div>
+    <div class="navbar-right">
+      <a href="login.html" class="icon-btn">
+        <img src="user.png" alt="User" class="icon-img">
+      </a>
+      <a href="cart.html" class="icon-btn">
+        <img src="cart.png" alt="Cart" class="icon-img">
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <button class="nav-close" id="navClose" aria-label="Close Menu">&times;</button>
+      <a href="index.html">Home</a>
+      <a href="product.html">Product</a>
+      <a href="about.html">About</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart</a>
+      <a href="orders.html">Orders</a>
+    </nav>
+    <div class="search-panel" id="searchPanel">
+      <button class="search-close" id="searchClose" aria-label="Close Search">&times;</button>
+      <div class="search-content">
+        <h2>搜尋商品</h2>
+        <div class="search-input-wrap">
+          <input type="text" id="searchInput" placeholder="輸入關鍵字搜尋...">
+          <button type="button" id="searchBtn">
+            <img src="search.png" alt="Search" class="icon-img">
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="about-hero">
+      <img src="vivi 42.jpg" alt="About Hero">
+      <div class="about-hero-text">
+        <h1>Vivienne Westwood</h1>
+        <p>探索精髓，每一件精心策劃的作品都訴說著工藝與風格的故事。</p>
+      </div>
+    </div>
+
+    <section class="about-section">
+      <div class="about-content">
+        <div class="about-text">
+          <h2>品牌故事</h2>
+          <p>Vivienne Westwood 成立於1971年，由傳奇設計師 Vivienne Westwood 創立。品牌以其獨特的設計理念和對可持續時尚的堅持而聞名於世。從龐克運動的先驅到高級時裝的代表，Westwood 一直在挑戰傳統，創造新的時尚語言。</p>
+          <p>致力於將傳統工藝與現代設計相結合，創造出獨特而永恆的珠寶作品。每一件作品都融入了品牌標誌性的反叛精神和優雅氣質，展現了對工藝和創新的不懈追求。</p>
+        </div>
+        <div class="about-image">
+          <img src="vivi 38.jpg" alt="Brand Story">
+        </div>
+      </div>
+    </section>
+
+    <section class="timeline-section">
+      <div class="timeline-container">
+        <div class="timeline-item">
+          <div class="timeline-year">1971</div>
+          <div class="timeline-content">
+            <h3>品牌創立</h3>
+            <p>在倫敦國王路430號開設第一家店鋪"Let It Rock"，開始了品牌的傳奇之路。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1981</div>
+          <div class="timeline-content">
+            <h3>首個系列發布</h3>
+            <p>推出首個正式時裝系列"Pirate"，標誌著品牌進入高級時裝領域。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1990-1991</div>
+          <div class="timeline-content">
+            <h3>英國設計師大獎</h3>
+            <p>連續兩年獲得英國年度最佳設計師獎，確立了在時尚界的領導地位。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2006</div>
+          <div class="timeline-content">
+            <h3>獲封女爵士</h3>
+            <p>因對英國時尚界的傑出貢獻，被英國女王授予DBE勳章。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Aaron Website</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+
+</html> 

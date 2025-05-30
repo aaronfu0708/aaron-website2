@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Detail</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    .product-detail-section {
+      background: #fff;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    .product-detail {
+      display: flex;
+      gap: 48px;
+      border-radius: 16px;
+      padding: 36px 40px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 40px auto;
+      background: #fff;
+      align-items: flex-start;
+    }
+
+    .product-images {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 32px;
+      min-width: 600px;
+      position: relative;
+    }
+
+    .thumbs {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 8px;
+    }
+
+    .thumb-img {
+      width: 120px;
+      height: 140px;
+      object-fit: cover;
+      border: none;
+      cursor: pointer;
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+
+    .thumb-img.selected {
+      border-bottom: 4px solid #111;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+    }
+
+    .main-img-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #main-img {
+      width: 480px;
+      height: 540px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      display: block;
+    }
+
+    /* 手机版轮播 */
+    .mobile-slider {
+      display: none;
+      width: 100%;
+    }
+
+    .mobile-slider .swiper-slide {
+      width: 100%;
+    }
+
+    .mobile-slider .swiper-slide img {
+      width: 100%;
+      height: auto;
+      max-height: 80vh;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    .mobile-slider .swiper-pagination {
+      position: relative;
+      margin-top: 10px;
+    }
+
+    .mobile-slider .swiper-pagination-bullet {
+      width: 6px;
+      height: 6px;
+      background: #000;
+      opacity: 0.3;
+    }
+
+    .mobile-slider .swiper-pagination-bullet-active {
+      opacity: 1;
+    }
+
+    /* 介紹內容縮小與留白 */
+    .product-info {
+      flex: 1 1 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      justify-content: flex-start;
+      min-width: 320px;
+      position: relative;
+      font-size: 1.05rem;
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    .product-info h1 {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+      color: #111;
+      font-weight: normal;
+      letter-spacing: 1px;
+    }
+
+    .product-price {
+      color: #111;
+      font-size: 1.1rem;
+      font-weight: normal;
+      margin-bottom: 12px;
+    }
+
+    .desc-title {
+      font-size: 1rem;
+      margin-top: 24px;
+      margin-bottom: 0;
+    }
+
+    .desc-content {
+      margin-top: 10px;
+      color: #222;
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+
+    .btn {
+      font-size: 1rem;
+    }
+
+    .btn#add-cart-btn {
+      font-size: 1.15rem;
+      padding: 16px 0;
+      width: 100%;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: background 0.2s;
+    }
+
+    .btn#add-cart-btn:hover {
+      background: #bfa37c;
+      color: #fff;
+    }
+
+    .size-select {
+  display: flex;
+  justify-content: flex-start;
+  margin: 32px 0 15px 0;
+}
+.size-btn.selected {
+  border: none;
+  border-bottom: 2px solid #111;
+  background: #fff;
+  color: #111;
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding-bottom: 8px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.size-btn {
+      border: none;
+      background: #fff;
+      color: #111;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 0 18px 8px 18px;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: border 0.2s;
+    }
+    .size-btn.selected {
+      border-bottom: 4px solid #111;
+    }
+    .qty-btn {
+      width: 32px;
+      height: 32px;
+      font-size: 1.3rem;
+      border: 1px solid #ccc;
+      background: #fff;
+      color: #111;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .qty-btn:active {
+      background: #eee;
+    }
+    .qty-num {
+      min-width: 32px;
+      text-align: center;
+      font-size: 1.2rem;
+      display: inline-block;
+    }
+    @media (max-width: 900px) {
+      .product-detail {
+        flex-direction: column;
+        align-items: center;
+        padding: 24px 8vw;
+        gap: 28px;
+      }
+
+      .product-info {
+        min-width: unset;
+        padding-left: 8vw;
+        padding-right: 8vw;
+        font-size: 0.98rem;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .product-detail {
+        padding: 0;
+      }
+
+      .product-images {
+        min-width: unset;
+        width: 100%;
+      }
+
+      .thumbs,
+      .main-img-wrap {
+        display: none !important;
+      }
+
+      .mobile-slider {
+        display: block;
+      }
+
+      .product-info {
+        padding: 20px;
+      }
+
+      .product-info h1 {
+        font-size: 1.05rem;
+      }
+
+      .product-price {
+        font-size: 0.98rem;
+      }
+
+      .desc-title {
+        font-size: 0.92rem;
+      }
+
+      .desc-content {
+        font-size: 0.92rem;
+      }
+
+      .btn {
+        font-size: 0.95rem;
+      }
+    }
+
+    /* 相關商品輪播區域樣式 */
+    .related-products {
+      padding: 40px 0 60px 0;
+    }
+
+    .related-products-title {
+      font-weight: normal;
+      text-align: center;
+      font-size: 1.3rem;
+      margin-bottom: 32px;
+      letter-spacing: 1px;
+      color: #222;
+    }
+
+    .products-slider {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 60px;
+      position: relative;
+    }
+
+    .products-slider .swiper-wrapper {
+      display: flex;
+    }
+
+    .products-slider .swiper-slide {
+      width: calc((100% - 144px) / 4) !important;
+      margin-right: 48px !important;
+    }
+
+    .products-slider .product-card {
+      width: 100%;
+      text-align: center;
+      transition: box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .products-slider .product-img-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .products-slider img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .products-slider .img-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .products-slider .product-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .products-slider .product-card:hover .img-overlay {
+      opacity: 1;
+    }
+
+    .products-slider h3 {
+      font-weight: normal;
+      font-size: 0.95rem;
+      margin: 8px 0;
+      color: #333;
+    }
+
+    .products-slider p {
+      font-size: 0.9rem;
+      color: #666;
+      padding: 10px;
+    }
+
+    .products-slider .product-link {
+      text-decoration: none;
+      color: inherit;
+      width: 100%;
+    }
+
+    .products-slider .swiper-button-next,
+    .products-slider .swiper-button-prev {
+      background: none;
+      position: absolute;
+      transform: translateY(-50%);
+      box-shadow: none;
+      margin-top: 0;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .products-slider .swiper-button-next {
+      right: 8px;
+    }
+
+    .products-slider .swiper-button-prev {
+      left: 8px;
+    }
+
+    .products-slider .swiper-button-next:after,
+    .products-slider .swiper-button-prev:after {
+      font-size: 30px;
+      font-weight: normal;
+    }
+
+    @media (max-width: 768px) {
+      .products-slider {
+        padding: 0 40px;
+      }
+      
+      .products-slider .swiper-slide {
+        width: 50% !important;
+      }
+      
+      .products-slider img {
+        height: 400px;
+      }
+
+      .products-slider .swiper-button-next,
+      .products-slider .swiper-button-prev {
+        width: 40px;
+        height: 40px;
+        top: calc(200px - 20px);
+      }
+
+      .products-slider .swiper-button-next {
+        right: 0;
+      }
+
+      .products-slider .swiper-button-prev {
+        left: 0;
+      }
+
+      .products-slider .swiper-button-next:after,
+      .products-slider .swiper-button-prev:after {
+        font-size: 16px;
+      }
+      
+      .products-slider h3 {
+        font-size: 0.9rem;
+      }
+
+      .products-slider p {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="menu-toggle" id="menuToggle">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </div>
+      <a href="#" class="icon-btn" id="searchToggle"><img src="search.png" alt="Search" class="icon-img"></a>
+    </div>
+    <div class="logo">
+      <a href="index.html" style="color:inherit; text-decoration:none;">AARON</a>
+    </div>
+    <div class="navbar-right">
+      <a href="login.html" class="icon-btn">
+        <img src="user.png" alt="User" class="icon-img">
+      </a>
+      <a href="cart.html" class="icon-btn">
+        <img src="cart.png" alt="Cart" class="icon-img">
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <button class="nav-close" id="navClose" aria-label="Close Menu">&times;</button>
+      <a href="index.html">Home</a>
+      <a href="product.html">Product</a>
+      <a href="about.html">About</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart</a>
+      <a href="orders.html">Orders</a>
+    </nav>
+    <!-- 搜尋面板 -->
+    <div class="search-panel" id="searchPanel">
+      <button class="search-close" id="searchClose" aria-label="Close Search">&times;</button>
+      <div class="search-content">
+        <h2>搜尋商品</h2>
+        <div class="search-input-wrap">
+          <input type="text" id="searchInput" placeholder="輸入關鍵字搜尋...">
+          <button type="button" id="searchBtn">
+            <img src="search.png" alt="Search" class="icon-img">
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+  <main class="product-detail-section">
+    <div class="product-detail">
+      <div class="product-images">
+        <div class="thumbs">
+          <img class="thumb-img selected" id="thumb1" src="" alt="thumb1" />
+          <img class="thumb-img" id="thumb2" src="" alt="thumb2" />
+        </div>
+        <div class="main-img-wrap">
+          <img id="main-img" src="" alt="Main Product" />
+        </div>
+        <!-- 手机版轮播 -->
+        <div class="swiper mobile-slider" id="mobile-slider">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img id="mobile-img1" src="" alt="Product Image" />
+            </div>
+            <div class="swiper-slide">
+              <img id="mobile-img2" src="" alt="Product Image" />
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+      <div class="product-info">
+        <h1>Product Name</h1>
+        <p class="product-price">$0</p>
+        <div style="margin-top:18px;">
+          <label style="margin-right:12px;">Size:</label>
+          <div class="size-select" id="size-select">
+            <button class="size-btn selected" data-size="ONE SIZE">ONE SIZE</button>
+          </div>
+        </div>
+        <div class="qty-wrap" style="margin:18px 0; display:flex; align-items:center; gap:12px;">
+          <label style="margin-right:12px;">數量：</label>
+          <button type="button" class="qty-btn" id="qty-dec">-</button>
+          <span class="qty-num" id="qty-num">1</span>
+          <button type="button" class="qty-btn" id="qty-inc">+</button>
+        </div>
+        <button id="add-cart-btn" class="btn">Add to cart</button>
+        <p id="add-msg" style="color: green; display:none;">Added to cart !</p>
+        <div class="desc-title">DESCRIPTION &nbsp;&nbsp; &mdash;&mdash;&mdash; <span class="desc-line"></span></div>
+        <div class="desc-content" id="desc-content">
+          Product description will show here.
+        </div>
+      </div>
+    </div>
+    <div class="related-products">
+      <h2 class="related-products-title">更多商品</h2>
+      <div class="products-slider">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%201.jpg&img2=vivi%202.jpg&name=Lucrece%20Earrings&price=270" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 1.jpg" alt="商品圖片">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Lucrece Earrings</h3>
+                <p>$270</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%208.jpg&img2=vivi%209.jpg&name=Man.%20Azul%20Necklace&price=395" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 8.jpg" alt="商品圖片">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Man. Azul Necklace</h3>
+                <p>$395</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2010.jpg&img2=vivi%2011.jpg&name=Jackie%20Sunglasses&price=590" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 10.jpg" alt="商品圖片">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Jackie Sunglasses</h3>
+                <p>$590</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2012.jpg&img2=vivi%2013.jpg&name=Costello%20Sunglasses&price=275" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 12.jpg" alt="商品圖片">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Costello Sunglasses</h3>
+                <p>$275</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2018.jpg&img2=vivi%2019.jpg&name=Diamante%20Heart%20Pendant%20Necklace&price=270" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 18.jpg" alt="商品圖片">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Diamante Heart Pendant Necklace</h3>
+                <p>$270</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2020.jpg&img2=vivi%2021.jpg&name=LAriella%20Pendant%20Necklace&price=185" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 20.jpg" alt="商品圖片">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>LAriella Pendant Necklace</h3>
+                <p>$185</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2022.jpg&img2=vivi%2023.jpg&name=Kitty%20Pendant%20Necklace&price=220" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 22.jpg" alt="商品圖片">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Kitty Pendant Necklace</h3>
+                <p>$220</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2024.jpg&img2=vivi%2025.jpg&name=Ariella%20Pendant%20Necklace&price=200" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 24.jpg" alt="商品圖片">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Ariella Pendant Necklace</h3>
+                <p>$200</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+    <p>&copy; 2025 Aaron Website</p>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script src="main.js"></script>
+  <script>
+    // 取得网址参数
+    function getQueryParam(key) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(key);
+    }
+
+    // 设置图片
+    const img1 = getQueryParam('img1');
+    const img2 = getQueryParam('img2');
+    if (img1) {
+      document.getElementById('main-img').src = img1;
+      document.getElementById('thumb1').src = img1;
+      document.getElementById('mobile-img1').src = img1;
+    }
+    if (img2) {
+      document.getElementById('thumb2').src = img2;
+      document.getElementById('mobile-img2').src = img2;
+    }
+
+    // 初始化手机版轮播
+    let mobileSwiper;
+    function initMobileSwiper() {
+      if (window.innerWidth <= 700) {
+        mobileSwiper = new Swiper('.swiper', {
+  slidesPerView: isMobile ? 'auto' : 4,
+  spaceBetween: 16,
+  freeMode: isMobile,
+  loop: !isMobile,
+  grabCursor: true,
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev'
+  }
+});
+      }
+    }
+
+    // 页面加载完成后初始化
+    document.addEventListener('DOMContentLoaded', initMobileSwiper);
+
+    // 窗口大小改变时重新初始化
+    window.addEventListener('resize', () => {
+      if (window.innerWidth <= 700) {
+        if (!mobileSwiper) {
+          initMobileSwiper();
+        }
+      } else {
+        if (mobileSwiper) {
+          mobileSwiper.destroy();
+          mobileSwiper = null;
+        }
+      }
+    });
+
+    // 桌面版缩略图切换
+    document.getElementById('thumb1').addEventListener('click', function() {
+      document.getElementById('main-img').src = this.src;
+      document.getElementById('thumb1').classList.add('selected');
+      document.getElementById('thumb2').classList.remove('selected');
+    });
+    document.getElementById('thumb2').addEventListener('click', function() {
+      document.getElementById('main-img').src = this.src;
+      document.getElementById('thumb2').classList.add('selected');
+      document.getElementById('thumb1').classList.remove('selected');
+    });
+
+    // 設定名稱
+    const name = getQueryParam('name');
+    if (name) {
+      document.querySelector('.product-info h1').textContent = name;
+    }
+    // 設定價格
+    const price = getQueryParam('price');
+    if (price) {
+      document.querySelector('.product-price').textContent = '$' + price;
+    }
+    // 描述
+    const descMap = {
+      "Diamante Heart Pendant Necklace": "採用混合金屬打造土星造型吊墜，鑲嵌白色水晶與鉚釘細節，展現品牌標誌性的龐克風格。",
+      "LAriella Pendant Necklace": "LAriella Pendant Necklace，優雅且經典，是日常穿搭的必備單品。",
+      "Kitty Pendant Necklace": "Kitty Pendant Necklace，俏皮可愛，為你的造型增添趣味。",
+      "Ariella Pendant Necklace": "Ariella Pendant Necklace，經典設計，適合各種場合搭配。",
+      "Three Row Pearl Bas Relief Choker": "三排珍珠頸鍊，奢華設計，搭配品牌經典標誌。",
+      "Messaline Choker": "Messaline Choker，簡約優雅，適合日常配戴。",
+      "Mini Bas Relief Pearl Choker": "迷你珍珠頸鍊，經典款式的精緻版本。",
+      "One Row Pearl Drop Choker": "單排珍珠垂墜頸鍊，簡約中帶有亮點。",
+      "Lucrece Earrings": "Lucrece Earrings，造型大方，為你帶來自信氣場。",
+      "Man. Azul Necklace": "Man. Azul Necklace，現代設計，藍色點綴增添時尚感。",
+      "Jackie Sunglasses": "Jackie Sunglasses，時尚百搭，適合各種季節。",
+      "Costello Sunglasses": "Costello Sunglasses，經典造型，具備UV防護功能。"
+    };
+    if (name && descMap[name]) {
+      document.getElementById('desc-content').innerHTML = descMap[name];
+    } else {
+      document.getElementById('desc-content').textContent = "Product description will show here.";
+    }
+
+    // 尺寸選擇
+document.querySelectorAll('.size-btn').forEach(btn => {
+  btn.addEventListener('click', function () {
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+    this.classList.add('selected');
+  });
+});
+
+// 數量選擇
+let qty = 1;
+document.getElementById('qty-dec').onclick = function () {
+  if (qty > 1) qty--;
+  document.getElementById('qty-num').textContent = qty;
+};
+document.getElementById('qty-inc').onclick = function () {
+  qty++;
+  document.getElementById('qty-num').textContent = qty;
+};
+
+// 加入購物車
+document.getElementById('add-cart-btn').addEventListener('click', function () {
+  const name = document.querySelector('.product-info h1').textContent;
+  const price = document.querySelector('.product-price').textContent.replace('$', '');
+  const img = document.getElementById('main-img').src || document.getElementById('mobile-img').src;
+  const size = document.querySelector('.size-btn.selected').dataset.size;
+  const product = { name, price, img, size, qty };
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push(product);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  
+  // 立即更新購物車數量
+  const cartCount = document.getElementById('cartCount');
+  if (cartCount) {
+    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+    cartCount.textContent = totalItems;
+    cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+  }
+  
+  // 觸發 storage 事件以更新其他頁面
+  window.dispatchEvent(new StorageEvent('storage', {
+    key: 'cart',
+    newValue: JSON.stringify(cart)
+  }));
+  
+  document.getElementById('add-msg').style.display = "block";
+  setTimeout(() => document.getElementById('add-msg').style.display = "none", 2000);
+});
+
+    // 初始化相關商品輪播
+    const productsSwiper = new Swiper('.products-slider', {
+      loop: true,
+      loopFillGroupWithBlank: true,
+      slidesPerView: 2,
+      spaceBetween: 16,
+      slidesPerGroup: 1,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 2,
+          spaceBetween: 16,
+        },
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 48,
+        }
+      }
+    });
+  </script>
+</body>
+</html>

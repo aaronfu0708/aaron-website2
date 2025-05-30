@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AARON-website</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    /* 重置基本樣式 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Logo 動畫樣式 */
+    .hero-section {
+      position: relative;
+      height: 30vw;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* 大 logo 樣式 */
+    .hero-logo {
+      position: absolute;
+      top: calc(48% - (30vw * 0.2));
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      text-align: center;
+      width: auto;
+      transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .hero-logo-text {
+      font-family: "Century Gothic", "Futura", "Trebuchet MS", sans-serif;
+      font-size: calc(30vw * 0.25);
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      color: rgba(255, 255, 255, 0.9);
+      white-space: nowrap;
+      line-height: 1;
+      margin-left: 0.175em;
+      transform: translateZ(0);
+      transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* 主圖片樣式 */
+    .hero-image-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.8) contrast(1.1);
+      display: block;
+    }
+
+    .desktop-image {
+      object-position: center 37%;  /* 從上方 20% 的位置開始顯示 */
+    }
+
+    .mobile-image {
+      display: none;
+    }
+
+    /* 添加暗色遮罩 */
+    .hero-image-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.35));  /* 降低遮罩深度 */
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: absolute;
+      left: 50%;
+      transform: translateX(calc(-50% + (30vw * 0.1)));
+      top: 60%;
+      height: auto;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      z-index: 2;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 12px 36px;
+      background-color: transparent;
+      color: rgba(255, 255, 255, 0.9);  /* 調整透明度為 0.9 */
+      text-decoration: none;
+      font-size: 0.95rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.9);  /* 調整透明度為 0.9 */
+      transition: all 0.4s ease;
+      font-weight: 300;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-button {
+      display: inline-block;
+      padding: 12px 36px;
+      background-color: rgba(255, 255, 255, 0.85);  /* 調整背景透明度為 0.85 */
+      color: rgba(0, 0, 0, 0.9);
+      text-decoration: none;
+      font-size: 0.95rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      transition: all 0.4s ease;
+      font-weight: 300;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-button:hover {
+      background-color: transparent;
+      color: #fff;
+    }
+
+    .cta-button:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .cta-button::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: #fff;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s ease;
+    }
+
+    .cta-button:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* 導航欄 logo 樣式 */
+    .navbar .logo {
+      opacity: 0;
+      transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity;
+      backface-visibility: hidden;
+    }
+
+    .navbar .logo.visible {
+      opacity: 1;
+    }
+
+    main {
+      margin: 0;
+      padding: 0;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        height: 85vh;
+      }
+      
+      .hero-logo {
+        top: 45%;
+        transform: translate(-50%, -50%) scale(0.95);
+        transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .hero-logo-text {
+        font-size: 2.2rem;
+        letter-spacing: 0.25em;
+        transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity: 0.95;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      .hero-logo.visible {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+
+      .hero-logo-text.visible {
+        opacity: 1;
+        transform: translateZ(0) scale(1);
+      }
+
+      .cta-button, .login-button {
+        padding: 10px 28px;
+        font-size: 0.85rem;
+      }
+
+      .hero-content {
+        transform: translateX(-50%);
+        gap: 16px;
+        bottom: 15%;
+        top: auto;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0 20px;
+      }
+      
+      .cta-button, .login-button {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+      }
+
+      .desktop-image {
+        display: none;
+      }
+      
+      .mobile-image {
+        display: block;
+        height: 65vh;
+        object-position: center 20%;
+      }
+    }
+
+    /* 手機版特定樣式 */
+    @media screen and (max-width: 768px) {
+      /* Hero section 調整 */
+      .hero-section {
+        height: 65vh;
+      }
+
+      /* 大 logo 樣式調整 */
+      .hero-logo {
+        position: absolute;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 95vw;  /* 改為固定寬度 */
+        text-align: center;  /* 確保文字置中 */
+      }
+
+      .hero-logo-text {
+        font-size: 16vw;
+        letter-spacing: 0.35em;
+        margin-left: 0;  /* 移除左邊距 */
+        margin-right: -0.35em;  /* 補償letter-spacing造成的右側空白 */
+        white-space: nowrap;
+        display: inline-block;  /* 改為inline-block */
+        text-align: center;
+      }
+
+      /* 圖片容器調整 */
+      .hero-image-container {
+        height: 100%;
+      }
+
+      .hero-image {
+        height: 65vh;
+        object-position: center 20%;
+        filter: brightness(0.65) contrast(1.1);
+      }
+
+      /* 按鈕區域調整 */
+      .hero-content {
+        top: 58%;
+        flex-direction: column;
+        gap: 15px;
+        transform: translateX(-50%);
+      }
+
+      /* 按鈕樣式調整 */
+      .cta-button, .login-button {
+        width: 200px;
+        text-align: center;
+        padding: 15px 0;
+        font-size: 0.9rem;
+      }
+
+      /* 遮罩調整 */
+      .hero-image-container::after {
+        height: 65vh;
+        background: linear-gradient(to bottom, 
+          rgba(0,0,0,0.2) 0%,
+          rgba(0,0,0,0.4) 50%,
+          rgba(0,0,0,0.6) 100%
+        );
+      }
+
+      .desktop-image {
+        display: none;
+      }
+      
+      .mobile-image {
+        display: block;
+        height: 65vh;
+        object-position: center 20%;
+      }
+    }
+
+    /* 特小螢幕調整 */
+    @media screen and (max-width: 375px) {
+      .hero-logo-text {
+        font-size: 14vw;  /* 調小特小螢幕的字體大小 */
+      }
+
+      .cta-button, .login-button {
+        width: 180px;
+        padding: 14px 0;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* 特色商品部分 - 更新樣式 */
+    .featured-section {
+      margin-top: 100px !important;
+      padding: 40px 0 60px 0;
+      position: relative;
+    }
+
+    .featured-section h2 {
+      text-align: center;
+      margin-bottom: 50px;
+      rem;
+      letter-spacing: 2px;
+    }
+
+    .featured-grid {
+      display: none;  /* 桌機版隱藏網格 */
+    }
+
+    /* 商品輪播樣式 */
+    .products-slider {
+      position: relative;
+      padding: 0 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .products-slider .swiper-slide {
+      width: 290px !important;
+    }
+
+    .product-card {
+      position: relative;
+      background: #fff;
+      transition: transform 0.3s ease;
+    }
+
+    .product-img-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 133.33%;
+      overflow: hidden;
+    }
+
+    .product-img-wrap img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-card h3 {
+      margin-top: 15px;
+      font-size: 1rem;
+      font-weight: normal;
+      text-align: center;
+    }
+
+    .product-card p {
+      margin-top: 6px;
+      font-size: 0.95rem;
+      color: #666;
+      text-align: center;
+    }
+
+    .products-slider .swiper-button-next,
+    .products-slider .swiper-button-prev {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #eee;
+      border-radius: 50%;
+      color: #000;
+    }
+
+    .products-slider .swiper-button-next:after,
+    .products-slider .swiper-button-prev:after {
+      font-size: 18px;
+    }
+
+    /* 手機版樣式 */
+    @media screen and (max-width: 768px) {
+      .featured-section {
+        margin-top: 40px !important;
+        padding: 0 20px;
+      }
+
+      .products-slider {
+        display: none;  /* 手機版隱藏輪播 */
+      }
+
+      .featured-grid {
+        display: grid;  /* 手機版顯示網格 */
+      }
+    }
+
+    /* 時尚形象照展示 */
+    main .fashion-showcase {
+      margin-top: 140px;  /* 保持一致性 */
+      padding: 40px 0;
+      background: #fff;
+    }
+
+    @media screen and (max-width: 768px) {
+      main .fashion-showcase {
+        margin-top: 40px;
+      }
+    }
+
+    /* 品牌大標題 */
+    .brand-title-section {
+      margin-top: 80px;
+      padding: 0 20px;
+    }
+
+    .brand-title-section h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    /* 品牌故事部分 */
+    .brand-story {
+      margin-top: 80px;
+      padding: 0 2vw;
+    }
+
+    .story-image {
+      width: 100vw;
+      height: 65vh;
+      overflow: hidden;
+      margin: 0 -2vw;
+    }
+
+    .story-image img {
+      width: 100vw;
+      height: 65vh;
+      object-fit: cover;
+    }
+
+    .story-image-link {
+      display: block;
+      width: 100vw;
+      height: 65vh;
+    }
+
+    /* 添加額外的過渡效果 */
+    .products-slider .swiper-wrapper {
+      transition-timing-function: linear !important;
+      will-change: transform;
+    }
+
+    .products-slider .swiper-slide {
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.85;
+      transform: scale(0.98);
+    }
+
+    .products-slider .swiper-slide-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="menu-toggle" id="menuToggle">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </div>
+      <a href="#" class="icon-btn" id="searchToggle"><img src="search.png" alt="Search" class="icon-img"></a>
+    </div>
+    <div class="logo">
+      <a href="index.html" style="color:inherit; text-decoration:none;">AARON</a>
+    </div>
+    <div class="navbar-right">
+      <a href="login.html" class="icon-btn">
+        <img src="user.png" alt="User" class="icon-img">
+      </a>
+      <a href="cart.html" class="icon-btn">
+        <img src="cart.png" alt="Cart" class="icon-img">
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <button class="nav-close" id="navClose" aria-label="Close Menu">&times;</button>
+      <a href="index.html">Home</a>
+      <a href="product.html">Product</a>
+      <a href="about.html">About</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart</a>
+      <a href="orders.html">Orders</a>
+    </nav>
+    <!-- 搜尋面板 -->
+    <div class="search-panel" id="searchPanel">
+      <button class="search-close" id="searchClose" aria-label="Close Search">&times;</button>
+      <div class="search-content">
+        <h2>搜尋商品</h2>
+        <div class="search-input-wrap">
+          <input type="text" id="searchInput" placeholder="輸入關鍵字搜尋...">
+          <button type="button" id="searchBtn">
+            <img src="search.png" alt="Search" class="icon-img">
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <!-- 大 Logo -->
+      <div class="hero-logo" id="heroLogo">
+        <div class="hero-logo-text">AARON</div>
+      </div>
+      
+      <!-- 主圖片 -->
+      <div class="hero-image-container">
+        <img src="vivi 42.jpg" alt="Banner" class="hero-image desktop-image" />
+        <img src="vivi 13.jpg" alt="Banner" class="hero-image mobile-image" />
+        <div class="hero-content">
+          <a href="product.html" class="cta-button">SHOP NOW</a>
+          <a href="login.html" class="login-button">LOGIN</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 特色商品部分 -->
+    <section class="featured-section">
+      <h2>FEATURED PRODUCTS</h2>
+      
+      <!-- 桌機版輪播 -->
+      <div class="products-slider">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2022.jpg&img2=vivi%2023.jpg&name=Kitty%20Pendant%20Necklace&price=220" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 22.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Kitty Pendant Necklace</h3>
+                <p>$220</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2018.jpg&img2=vivi%2019.jpg&name=Diamante%20Heart%20Pendant%20Necklace&price=270" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 18.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Diamante Heart Pendant</h3>
+                <p>$270</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2012.jpg&img2=vivi%2013.jpg&name=Costello%20Sunglasses&price=275" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 12.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Costello Sunglasses</h3>
+                <p>$275</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%202.jpg&img2=vivi%201.jpg&name=Lucrece%20Earrings&price=270" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 2.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Lucrece Earrings</h3>
+                <p>$270</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%208.jpg&img2=vivi%209.jpg&name=Man.%20Azul%20Necklace&price=395" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 8.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Man. Azul Necklace</h3>
+                <p>$395</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2020.jpg&img2=vivi%2021.jpg&name=LAriella%20Pendant%20Necklace&price=185" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 20.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>LAriella Pendant Necklace</h3>
+                <p>$185</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2024.jpg&img2=vivi%2025.jpg&name=Crystal%20Drop%20Earrings&price=290" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 24.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Crystal Drop Earrings</h3>
+                <p>$290</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2026.jpg&img2=vivi%2027.jpg&name=Pearl%20Necklace&price=310" class="product-link">
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img src="vivi 26.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Pearl Necklace</h3>
+                <p>$310</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+
+      <!-- 手機版網格 -->
+      <div class="featured-grid">
+        <a href="product2.html?img1=vivi%2022.jpg&img2=vivi%2023.jpg&name=Kitty%20Pendant%20Necklace&price=220" class="featured-item">
+          <div class="product-img-wrap">
+            <img src="vivi 22.jpg" alt="Featured Product">
+            <div class="img-overlay"></div>
+          </div>
+          <div class="featured-info">
+            <h3>Kitty Pendant Necklace</h3>
+            <p>$220</p>
+          </div>
+        </a>
+        <a href="product2.html?img1=vivi%2018.jpg&img2=vivi%2019.jpg&name=Diamante%20Heart%20Pendant%20Necklace&price=270" class="featured-item">
+          <div class="product-img-wrap">
+            <img src="vivi 18.jpg" alt="Featured Product">
+            <div class="img-overlay"></div>
+          </div>
+          <div class="featured-info">
+            <h3>Diamante Heart Pendant</h3>
+            <p>$270</p>
+          </div>
+        </a>
+        <a href="product2.html?img1=vivi%2012.jpg&img2=vivi%2013.jpg&name=Costello%20Sunglasses&price=275" class="featured-item">
+          <div class="product-img-wrap">
+            <img src="vivi 12.jpg" alt="Featured Product">
+            <div class="img-overlay"></div>
+          </div>
+          <div class="featured-info">
+            <h3>Costello Sunglasses</h3>
+            <p>$275</p>
+          </div>
+        </a>
+        <a href="product2.html?img1=vivi%202.jpg&img2=vivi%201.jpg&name=Lucrece%20Earrings&price=270" class="featured-item">
+          <div class="product-img-wrap">
+            <img src="vivi 2.jpg" alt="Featured Product">
+            <div class="img-overlay"></div>
+          </div>
+          <div class="featured-info">
+            <h3>Lucrece Earrings</h3>
+            <p>$270</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 時尚形象照展示 -->
+    <section class="fashion-showcase">
+      <div class="showcase-grid">
+        <div class="showcase-item large">
+          <img src="vivi 41.jpg" alt="Fashion Image 1" class="large-image">
+        </div>
+        <div class="showcase-item small">
+          <img src="vivi 43.jpg" alt="Fashion Image 2" class="small-image">
+        </div>
+      </div>
+    </section>
+
+    <!-- 品牌大標題 -->
+    <section class="brand-title-section">
+      <h1>
+        <span class="title-top">VIVIENNE</span>
+        <span class="title-bottom">WESTWOOD</span>
+      </h1>
+    </section>
+
+    <!-- 品牌故事部分 -->
+    <section class="brand-story">
+      <div class="story-image">
+        <a href="about.html" class="story-image-link">
+        <img src="vivi 11.jpg" alt="Brand Story">
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Aaron Website</p>
+  </footer>
+
+  <script src="main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const heroLogo = document.getElementById('heroLogo');
+      const navLogo = document.querySelector('.navbar .logo');
+      const heroSection = document.querySelector('.hero-section');
+      let ticking = false;
+      let lastScrollY = window.scrollY;
+
+      // 獲取導航欄 logo 的位置
+      const navLogoRect = navLogo.getBoundingClientRect();
+      const navLogoTop = navLogoRect.top + window.scrollY;
+
+      function easeInOutQuart(x) {
+        return x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2;
+      }
+
+      function updateLogos() {
+        const rect = heroSection.getBoundingClientRect();
+        // 增加靈敏度
+        const scrollRatio = Math.min(1, Math.max(0, Math.abs(window.scrollY) / (rect.height * 0.3)));
+        const easedRatio = easeInOutQuart(scrollRatio);
+        
+        // 降低觸發閾值
+        if (window.scrollY > 1) {
+          const scale = 1 - (easedRatio * 0.85);
+          // 加快移動速度
+          const moveY = easedRatio * (navLogoTop - window.innerHeight * 0.15);
+          
+          const transform = `
+            translate3d(-50%, ${moveY}px, 0)
+            scale(${scale})
+          `;
+          
+          heroLogo.style.transform = transform;
+          heroLogo.style.opacity = 1 - (easedRatio * 0.9); // 調整透明度變化
+          
+          navLogo.style.opacity = easedRatio;
+          navLogo.classList.add('visible');
+        } else {
+          heroLogo.style.transform = 'translate3d(-50%, -50%, 0) scale(1)';
+          heroLogo.style.opacity = 1;
+          
+          navLogo.style.opacity = 0;
+          navLogo.classList.remove('visible');
+        }
+        
+        lastScrollY = window.scrollY;
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateLogos);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      // 初始化
+      updateLogos();
+    });
+
+    // 初始化特色商品輪播
+    const productsSwiper = new Swiper('.products-slider', {
+      loop: true,
+      loopFillGroupWithBlank: true,
+      slidesPerView: 'auto',
+      spaceBetween: 30,
+      centeredSlides: false,
+      speed: 10000,
+      allowTouchMove: true,  // 啟用觸控
+      grabCursor: true,      // 顯示抓取游標
+      cssMode: false,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,  // 互動後繼續自動播放
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 30,
+        }
+      },
+      on: {
+        init: function () {
+          this.$el[0].style.transition = 'transform 10s linear';
+        },
+        beforeTransitionStart: function () {
+          this.$wrapperEl[0].style.transitionTimingFunction = 'linear';
+        },
+        touchStart: function () {
+          // 觸摸開始時暫停自動播放
+          this.autoplay.stop();
+        },
+        touchEnd: function () {
+          // 觸摸結束後延遲 1 秒恢復自動播放
+          setTimeout(() => {
+            this.autoplay.start();
+          }, 1000);
+        }
+      },
+      observer: true,
+      observeParents: true,
+      watchSlidesProgress: true,
+    });
+  </script>
+</body>
+
+</html>
