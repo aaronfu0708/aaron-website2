@@ -198,14 +198,60 @@ function checkLoginStatus() {
   const loginLink = document.querySelector('a[href="login.html"]');
   
   if (currentUser && loginLink) {
-    loginLink.innerHTML = `<img src="user.png" alt="User" class="icon-img"><span style="margin-left: 8px;">${currentUser.name}</span>`;
+    // 檢查是否為手機版
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+      loginLink.innerHTML = `<img src="user.png" alt="User" class="icon-img"><span class="mobile-user-name">${currentUser.name}</span>`;
+    } else {
+      loginLink.innerHTML = `<img src="user.png" alt="User" class="icon-img"><span style="margin-left: 8px;">${currentUser.name}</span>`;
+    }
+    
     loginLink.href = '#';
     loginLink.onclick = function(e) {
       e.preventDefault();
-      if (confirm('確定要登出嗎？')) {
+      e.stopPropagation();
+      
+      // 使用自定義的確認對話框而不是瀏覽器內建的
+      const confirmDialog = document.createElement('div');
+      confirmDialog.className = 'confirm-dialog';
+      confirmDialog.innerHTML = `
+        <div class="confirm-content">
+          <h3>登出確認</h3>
+          <p>確定要登出嗎？</p>
+          <div class="confirm-buttons">
+            <button class="confirm-btn confirm-cancel">取消</button>
+            <button class="confirm-btn confirm-ok">確定</button>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(confirmDialog);
+      
+      // 添加動畫效果
+      setTimeout(() => confirmDialog.classList.add('show'), 10);
+      
+      // 綁定按鈕事件
+      const cancelBtn = confirmDialog.querySelector('.confirm-cancel');
+      const okBtn = confirmDialog.querySelector('.confirm-ok');
+      
+      cancelBtn.onclick = function() {
+        confirmDialog.classList.remove('show');
+        setTimeout(() => confirmDialog.remove(), 300);
+      };
+      
+      okBtn.onclick = function() {
         localStorage.removeItem('currentUser');
         window.location.reload();
-      }
+      };
+      
+      // 點擊背景關閉
+      confirmDialog.onclick = function(e) {
+        if (e.target === confirmDialog) {
+          confirmDialog.classList.remove('show');
+          setTimeout(() => confirmDialog.remove(), 300);
+        }
+      };
     };
   }
 }
