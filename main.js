@@ -219,21 +219,3 @@ if (checkoutForm) {
     localStorage.removeItem("cart");
   });
 }
-// Tab 切換
-const tabSignin = document.getElementById('tab-signin');
-const tabCreate = document.getElementById('tab-create');
-if (tabSignin && tabCreate) {
-  tabSignin.onclick = function () {
-    this.classList.add('active');
-    tabCreate.classList.remove('active');
-    document.getElementById('login-form').style.display = 'block';
-    document.getElementById('create-account-form').style.display = 'none';
-  };
-  
-  tabCreate.onclick = function () {
-    this.classList.add('active');
-    tabSignin.classList.remove('active');
-    document.getElementById('login-form').style.display = 'none';
-    document.getElementById('create-account-form').style.display = 'block';
-  };
-}
