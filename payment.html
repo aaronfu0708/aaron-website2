@@ -273,7 +273,7 @@
     .card-type i {
       font-size: 1.8rem;
       margin-bottom: 6px;
-      color: #222;
+      color: #666;
     }
 
     .card-type.selected i {
@@ -657,43 +657,6 @@
         margin-bottom: 8px;
       }
     }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .card-header label {
-      margin-bottom: 0;
-    }
-
-    .card-icons {
-      display: flex;
-      gap: 10px;
-      margin-top: 0;
-    }
-
-    .card-icons i {
-      font-size: 1.8rem;
-      color: #222;
-    }
-
-    .card-icons i.fa-cc-visa,
-    .card-icons i.fa-cc-mastercard,
-    .card-icons i.fa-cc-jcb {
-      color: #222;
-    }
-
-    @media (max-width: 768px) {
-      .card-icons {
-        gap: 8px;
-      }
-
-      .card-icons i {
-        font-size: 1.5rem;
-      }
-    }
   </style>
 </head>
 
@@ -796,14 +759,22 @@
 
       <div class="payment-form">
         <div id="credit-card-form">
-          <div class="form-group card-details">
-            <div class="card-header">
-              <label>卡片詳情</label>
-              <div class="card-icons">
+          <div class="form-group">
+            <label>選擇卡片類型</label>
+            <div class="card-types">
+              <div class="card-type selected" data-card="visa">
                 <i class="fab fa-cc-visa"></i>
-                <i class="fab fa-cc-mastercard"></i>
-                <i class="fab fa-cc-jcb"></i>
+                <span>VISA</span>
               </div>
+              <div class="card-type" data-card="mastercard">
+                <i class="fab fa-cc-mastercard"></i>
+                <span>MasterCard</span>
+              </div>
+              <div class="card-type" data-card="jcb">
+                <i class="fab fa-cc-jcb"></i>
+                <span>JCB</span>
+              </div>
+
             </div>
           </div>
           <div class="form-group">
@@ -979,6 +950,20 @@
       store.addEventListener('click', function() {
         document.querySelectorAll('.store-option').forEach(opt => opt.classList.remove('selected'));
         this.classList.add('selected');
+      });
+    });
+
+    // 卡片類型選擇功能
+    document.querySelectorAll('.card-type').forEach(card => {
+      card.addEventListener('click', function() {
+        document.querySelectorAll('.card-type').forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+        
+        // 重置卡號輸入欄位
+        const cardNumberInput = document.getElementById('cardNumber');
+        cardNumberInput.maxLength = 19; // 16位數字 + 3個空格
+        cardNumberInput.placeholder = 'xxxx xxxx xxxx xxxx';
+        cardNumberInput.value = '';
       });
     });
 
