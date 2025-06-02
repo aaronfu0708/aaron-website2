@@ -1678,22 +1678,49 @@ body.search-open {
   }
 }
 
-/* 手機版使用者名稱 */
-.mobile-user-name {
-  display: none;
+/* 使用者名稱顯示樣式 */
+.user-name {
+  margin-left: 8px;
+  font-size: 1rem;
+  color: #333;
+  vertical-align: middle;
+  display: inline-block;
 }
 
 @media (max-width: 768px) {
-  .mobile-user-name {
-    display: inline-block;
-    margin-left: 8px;
+  .user-name {
     font-size: 0.9rem;
-    color: #333;
-    max-width: 100px;
+    max-width: 5em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    vertical-align: middle;
+  }
+  
+  /* 改善手機版點擊區域 */
+  .icon-btn {
+    padding: 12px 8px;
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* 調整確認對話框樣式 */
+  .confirm-dialog .confirm-content {
+    width: 85%;
+    max-width: 280px;
+    padding: 20px;
+  }
+  
+  .confirm-dialog .confirm-buttons {
+    gap: 8px;
+  }
+  
+  .confirm-dialog .confirm-btn {
+    flex: 1;
+    min-height: 44px;
+    font-size: 0.95rem;
   }
 }
 
@@ -1792,24 +1819,5 @@ body.search-open {
   .confirm-btn {
     padding: 8px 20px;
     font-size: 0.9rem;
-  }
-}
-
-/* 使用者名稱顯示樣式 */
-.user-name {
-  margin-left: 8px;
-  font-size: 1rem;
-  color: #333;
-  vertical-align: middle;
-}
-
-@media (max-width: 768px) {
-  .user-name {
-    font-size: 0.9rem;
-    max-width: 5em;  /* 限制為五個字的寬度 */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: inline-block;  /* 確保寬度限制生效 */
   }
 }

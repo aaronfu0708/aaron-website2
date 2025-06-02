@@ -198,13 +198,26 @@ function checkLoginStatus() {
   const loginLink = document.querySelector('a[href="login.html"]');
   
   if (currentUser && loginLink) {
+    // 更新使用者名稱顯示
     loginLink.innerHTML = `<img src="user.png" alt="User" class="icon-img"><span class="user-name">${currentUser.name}</span>`;
     loginLink.href = '#';
-    loginLink.onclick = function(e) {
+    
+    // 移除之前可能存在的事件監聽器
+    const newLoginLink = loginLink.cloneNode(true);
+    loginLink.parentNode.replaceChild(newLoginLink, loginLink);
+    
+    // 添加新的事件監聽器
+    newLoginLink.addEventListener('click', function(e) {
       e.preventDefault();
       e.stopPropagation();
       
-      // 使用自定義的確認對話框而不是瀏覽器內建的
+      // 移除之前可能存在的對話框
+      const oldDialog = document.querySelector('.confirm-dialog');
+      if (oldDialog) {
+        oldDialog.remove();
+      }
+      
+      // 創建確認對話框
       const confirmDialog = document.createElement('div');
       confirmDialog.className = 'confirm-dialog';
       confirmDialog.innerHTML = `
@@ -221,30 +234,33 @@ function checkLoginStatus() {
       document.body.appendChild(confirmDialog);
       
       // 添加動畫效果
-      setTimeout(() => confirmDialog.classList.add('show'), 10);
+      requestAnimationFrame(() => {
+        confirmDialog.classList.add('show');
+      });
       
       // 綁定按鈕事件
       const cancelBtn = confirmDialog.querySelector('.confirm-cancel');
       const okBtn = confirmDialog.querySelector('.confirm-ok');
       
-      cancelBtn.onclick = function() {
+      function closeDialog() {
         confirmDialog.classList.remove('show');
         setTimeout(() => confirmDialog.remove(), 300);
-      };
+      }
       
-      okBtn.onclick = function() {
+      cancelBtn.addEventListener('click', closeDialog);
+      
+      okBtn.addEventListener('click', function() {
         localStorage.removeItem('currentUser');
         window.location.reload();
-      };
+      });
       
       // 點擊背景關閉
-      confirmDialog.onclick = function(e) {
+      confirmDialog.addEventListener('click', function(e) {
         if (e.target === confirmDialog) {
-          confirmDialog.classList.remove('show');
-          setTimeout(() => confirmDialog.remove(), 300);
+          closeDialog();
         }
-      };
-    };
+      });
+    });
   }
 }
 
