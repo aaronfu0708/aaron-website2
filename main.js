@@ -198,15 +198,7 @@ function checkLoginStatus() {
   const loginLink = document.querySelector('a[href="login.html"]');
   
   if (currentUser && loginLink) {
-    // 檢查是否為手機版
-    const isMobile = window.innerWidth <= 768;
-    
-    if (isMobile) {
-      loginLink.innerHTML = `<img src="user.png" alt="User" class="icon-img"><span class="mobile-user-name">${currentUser.name}</span>`;
-    } else {
-      loginLink.innerHTML = `<img src="user.png" alt="User" class="icon-img"><span style="margin-left: 8px;">${currentUser.name}</span>`;
-    }
-    
+    loginLink.innerHTML = `<img src="user.png" alt="User" class="icon-img"><span class="user-name">${currentUser.name}</span>`;
     loginLink.href = '#';
     loginLink.onclick = function(e) {
       e.preventDefault();

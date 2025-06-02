@@ -1794,3 +1794,22 @@ body.search-open {
     font-size: 0.9rem;
   }
 }
+
+/* 使用者名稱顯示樣式 */
+.user-name {
+  margin-left: 8px;
+  font-size: 1rem;
+  color: #333;
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .user-name {
+    font-size: 0.9rem;
+    max-width: 5em;  /* 限制為五個字的寬度 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;  /* 確保寬度限制生效 */
+  }
+}
