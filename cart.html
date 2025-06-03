@@ -373,7 +373,13 @@
       display: none;
       justify-content: center !important;
       align-items: center !important;
-      z-index: 9999 !important;
+      z-index: 1000 !important;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .cart-confirm-dialog.show {
+      opacity: 1;
     }
 
     .cart-confirm-content {
@@ -383,44 +389,85 @@
       width: 90% !important;
       max-width: 320px !important;
       text-align: center !important;
-      position: relative !important;
-      z-index: 10000 !important;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .cart-confirm-dialog.show .cart-confirm-content {
+      transform: translateY(0);
+      opacity: 1;
     }
 
     .cart-confirm-title {
+      margin: 0 0 16px 0 !important;
       font-size: 1.2rem !important;
-      margin-bottom: 16px !important;
-      color: #222 !important;
+      color: #333 !important;
+    }
+
+    .cart-confirm-message {
+      margin: 0 0 24px 0 !important;
+      color: #666 !important;
     }
 
     .cart-confirm-buttons {
       display: flex !important;
       justify-content: center !important;
       gap: 12px !important;
-      margin-top: 24px !important;
     }
 
     .cart-confirm-btn {
-      padding: 15px 30px !important;
+      padding: 8px 24px !important;
       border: none !important;
       border-radius: 4px !important;
       font-size: 1rem !important;
       cursor: pointer !important;
-      min-height: 44px !important;
-      min-width: 120px !important;
-      transition: none !important;
+      transition: all 0.2s !important;
     }
 
     .cart-confirm-cancel {
       background: #f5f5f5 !important;
       color: #666 !important;
-      border: 1px solid #ddd !important;
+    }
+
+    .cart-confirm-cancel:hover {
+      background: #eee !important;
     }
 
     .cart-confirm-ok {
       background: #333 !important;
       color: white !important;
-      border: 1px solid #333 !important;
+    }
+
+    .cart-confirm-ok:hover {
+      background: #444 !important;
+    }
+
+    @media (max-width: 768px) {
+      .cart-confirm-content {
+        padding: 20px !important;
+        width: 85% !important;
+        max-width: 280px !important;
+      }
+
+      .cart-confirm-title {
+        font-size: 1.1rem !important;
+      }
+
+      .cart-confirm-message {
+        font-size: 0.9rem !important;
+      }
+
+      .cart-confirm-btn {
+        padding: 8px 20px !important;
+        font-size: 0.9rem !important;
+        flex: 1 !important;
+        min-height: 44px !important;
+      }
+
+      .cart-confirm-buttons {
+        gap: 8px !important;
+      }
     }
   </style>
 </head>
@@ -517,7 +564,8 @@
 
   <div class="cart-confirm-dialog" id="confirmDialog">
     <div class="cart-confirm-content">
-      <div class="cart-confirm-title">確定要清空購物車嗎？</div>
+      <h3 class="cart-confirm-title">清空購物車</h3>
+      <p class="cart-confirm-message">確定要清空購物車嗎？</p>
       <div class="cart-confirm-buttons">
         <button class="cart-confirm-btn cart-confirm-cancel" id="confirmCancel">取消</button>
         <button class="cart-confirm-btn cart-confirm-ok" id="confirmOk">確定</button>
@@ -659,6 +707,10 @@
             e.stopPropagation();
             if (confirmDialog) {
               confirmDialog.style.display = 'flex';
+              // 添加動畫效果
+              requestAnimationFrame(() => {
+                confirmDialog.classList.add('show');
+              });
             }
           });
         });
@@ -671,7 +723,10 @@
             e.preventDefault();
             e.stopPropagation();
             if (confirmDialog) {
-              confirmDialog.style.display = 'none';
+              confirmDialog.classList.remove('show');
+              setTimeout(() => {
+                confirmDialog.style.display = 'none';
+              }, 300);
             }
           });
         });
@@ -686,7 +741,10 @@
             localStorage.removeItem('cart');
             updateCart();
             if (confirmDialog) {
-              confirmDialog.style.display = 'none';
+              confirmDialog.classList.remove('show');
+              setTimeout(() => {
+                confirmDialog.style.display = 'none';
+              }, 300);
             }
           });
         });
@@ -696,7 +754,10 @@
       if (confirmDialog) {
         confirmDialog.addEventListener('click', function(e) {
           if (e.target === confirmDialog) {
-            confirmDialog.style.display = 'none';
+            confirmDialog.classList.remove('show');
+            setTimeout(() => {
+              confirmDialog.style.display = 'none';
+            }, 300);
           }
         });
       }
