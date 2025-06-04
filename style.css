@@ -176,11 +176,27 @@ body.menu-open { overflow: hidden; }
 }
 .products {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   gap: 48px;
   padding: 0 32px;
   max-width: 1400px;
   margin: 0 auto;
+}
+.product-link {
+  grid-column: span 2;
+}
+.hero-video {
+  grid-column: 5 / span 4;
+  grid-row: 1 / span 2;
+  width: 100%;
+  height: 99vh;
+  position: relative;
+  overflow: hidden;
+}
+.hero-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .product-card {
   width: 100%;
@@ -449,15 +465,26 @@ body.menu-open { overflow: hidden; }
 /* 響應式設計 */
 @media (max-width: 1200px) {
   .products {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 48px;
+    grid-template-columns: repeat(6, 1fr);
+  }
+  
+  .hero-video {
+    grid-column: 4 / span 3;
   }
 }
 @media (max-width: 900px) {
   .products {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     padding: 0 24px;
+  }
+  
+  .hero-video {
+    grid-column: 3 / span 2;
+  }
+  
+  .product-link {
+    grid-column: span 1;
   }
   .product-detail {
     flex-direction: column;
@@ -478,6 +505,12 @@ body.menu-open { overflow: hidden; }
     padding: 0 16px;
   }
   
+  .hero-video {
+    grid-column: 1 / span 2;
+    grid-row: auto;
+    margin-bottom: 20px !important;
+    height: 70vh;
+  }
   .product-card {
     width: 100%;
   }
@@ -720,150 +753,22 @@ body.menu-open { overflow: hidden; }
   }
 
   /* 品牌故事 */
-  .story-content {
-    padding: 30px 20px;
+  .brand-story {
+    margin: 40px 0;
   }
+  
+  .story-image {
+    height: 60vh;
+  }
+}
 
-  .story-content h2 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-  }
-
-  .story-content p {
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-  }
-
-  .story-button {
-    padding: 10px 24px;
-    font-size: 0.9rem;
-  }
-
-  /* 分类导航滑动 */
-  .category-container {
-    display: block;
-    padding: 0 15px;
+@media (max-width: 480px) {
+  .brand-story {
+    margin: 30px 0;
   }
   
-  .category-swiper {
-    width: 100%;
-  }
-  
-  .category-swiper .swiper-slide {
-    width: 100%;
-  }
-  
-  .category-item .product-img-wrap img {
-    height: 160px;
-  }
-  
-  .category-item h3 {
-    font-size: 0.85rem;
-    margin-top: 8px;
-  }
-  
-  /* 特色商品滑动 */
-  .featured-grid {
-    display: block;
-    padding: 0 15px;
-  }
-  
-  .featured-swiper {
-    width: auto;
-  }
-  
-  .featured-swiper .swiper-slide {
-    width: auto;
-  }
-  
-  .featured-item .product-img-wrap img {
-    height: 160px;
-  }
-  
-  /* 调整商品信息间距 */
-  .featured-info {
-    margin-top: 8px;
-    margin-bottom: 20px;
-  }
-  
-  .featured-info h3 {
-    font-size: 0.8rem;
-    margin-bottom: 3px;
-  }
-  
-  .featured-info p {
-    font-size: 0.8rem;
-  }
-
-  /* 登录页面手机版调整 */
-  .track-order i {
-    font-size: 1.6rem;
-    margin-bottom: 6px;
-  }
-  
-  .track-title {
-    font-size: 0.9rem;
-  }
-  
-  .login-tabs .tab {
-    font-size: 0.95rem;
-    padding: 0 24px 10px 24px;
-  }
-  
-  .input-group label {
-    font-size: 0.9rem;
-    margin-bottom: 4px;
-  }
-  
-  .input-group input {
-    font-size: 0.95rem;
-    padding: 8px 0;
-  }
-  
-  .login-options {
-    font-size: 0.85rem;
-    margin-bottom: 24px;
-  }
-  
-  .remember-me {
-    gap: 4px;
-  }
-  
-  .forgot-link {
-    font-size: 0.85rem;
-  }
-  
-  .btn.custom-btn {
-    font-size: 0.95rem;
-    padding: 12px 0;
-    margin-top: 6px;
-    margin-bottom: 6px;
-  }
-  
-  .login-features {
-    margin-top: 28px;
-    gap: 15px;
-  }
-  
-  .login-features div {
-    font-size: 0.8rem;
-  }
-  
-  .login-features i {
-    font-size: 1.1rem;
-    margin-bottom: 4px;
-  }
-  
-  .custom-login {
-    padding-top: 24px;
-  }
-  
-  .track-order {
-    margin-bottom: 28px;
-  }
-  
-  .login-card.custom-card {
-    padding: 0 15px;
+  .story-image {
+    height: 50vh;
   }
 }
 
@@ -1125,7 +1030,8 @@ body.menu-open { overflow: hidden; }
 
 .story-image {
   width: 100%;
-  height: 80vh;
+  height: 100vh;
+  position: relative;
 }
 
 .story-image-link {
@@ -1143,7 +1049,7 @@ body.menu-open { overflow: hidden; }
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.15);
   transition: background-color 0.6s ease;
   z-index: 1;
 }
@@ -1161,7 +1067,7 @@ body.menu-open { overflow: hidden; }
 }
 
 .story-image-link:hover img {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 @media (max-width: 768px) {
