@@ -1010,113 +1010,53 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-// 第一個商品區輪播（auto + loop workaround）
-const firstWrapper = document.querySelector('.featured-section .products-slider .swiper-wrapper');
-const firstSlides = firstWrapper.querySelectorAll('.swiper-slide');
-const firstSlideCount = firstSlides.length;
+      // 第一个商品区轮播初始化
+      const firstWrapper = document.querySelector('.featured-section .products-slider .swiper-wrapper');
+      const firstSlides = firstWrapper.querySelectorAll('.swiper-slide');
+      const firstSlideCount = firstSlides.length;
 
-// 判斷是否啟用 loop（至少 5 張才能向左向右正常）
-const enableLoop = firstSlideCount >= 5;
+      // 手动复制 slides 确保循环播放
+      const clones = [];
+      firstSlides.forEach(slide => {
+        const clone = slide.cloneNode(true);
+        clone.classList.add('cloned-slide');
+        clones.push(clone);
+      });
+      clones.forEach(clone => firstWrapper.appendChild(clone));
 
-// 手動複製 slides（防止 loop auto 報錯）
-if (enableLoop) {
-  const clones = [];
-  firstSlides.forEach(slide => {
-    const clone = slide.cloneNode(true);
-    clone.classList.add('cloned-slide');
-    clones.push(clone);
-  });
-  clones.forEach(clone => firstWrapper.appendChild(clone));
-}
+      const firstSwiper = new Swiper('.featured-section .products-slider', {
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        loop: true,
+        loopedSlides: firstSlideCount,
+        speed: 3000,
+        allowTouchMove: true,
+        watchSlidesProgress: true,
+        autoplay: {
+          delay: 0,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: false,
+          reverseDirection: false
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 'auto',
+            spaceBetween: 30,
+          }
+        },
+        on: {
+          init: function() {
+            // 确保自动播放立即开始
+            this.autoplay.start();
+          },
+          beforeDestroy: function() {
+            // 销毁前停止自动播放
+            this.autoplay.stop();
+          }
+        }
+      });
 
-const firstSwiper = new Swiper('.featured-section .products-slider', {
-  slidesPerView: 'auto', // ✅ 保留 auto
-  spaceBetween: 20,
-  loop: enableLoop,
-  loopedSlides: enableLoop ? firstSlideCount : 0,
-  speed: 4000,
-  allowTouchMove: true,
-  watchSlidesProgress: true,
-  preventInteractionOnTransition: true,
-  autoplay: {
-    delay: 0,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: true,
-  },
-  breakpoints: {
-    768: {
-      slidesPerView: 'auto',
-      spaceBetween: 30,
-    }
-  },
-  on: {
-    beforeInit: function () {
-      this.classNames.push(`${this.params.containerModifierClass}fade`);
-    }
-  }
-});
-
-// ✅ Intersection Observer 控制 autoplay
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      firstSwiper.autoplay.start();
-    } else {
-      firstSwiper.autoplay.stop();
-    }
-  });
-}, {
-  threshold: 0.2,
-  rootMargin: '50px'
-});
-
-const sliderElement = document.querySelector('.featured-section .products-slider');
-if (window.innerWidth >= 768 && sliderElement) {
-  observer.observe(sliderElement);
-}
-
-
-
-// 第二個商品輪播（.second-products-slider）初始化，修正無法向左循環問題
-const secondSlides = document.querySelectorAll('.second-products-slider .swiper-slide');
-const secondSlideCount = secondSlides.length;
-const loopMode = secondSlideCount >= 6; // 至少 6 張才能左右都 loop
-
-//  Swiper 實例初始化
-const secondSwiper = new Swiper('.second-products-slider', {
-  slidesPerView: 'auto',
-  spaceBetween: 0,
-  loop: loopMode,
-  loopedSlides: loopMode ? secondSlideCount : 0,
-  watchSlidesProgress: true,
-  preventInteractionOnTransition: true,
-  navigation: {
-    nextEl: '.related-products .swiper-button-next',
-    prevEl: '.related-products .swiper-button-prev',
-  },
-  breakpoints: {
-    320: {
-      slidesPerView: 'auto',
-      spaceBetween: 0,
-      allowTouchMove: true,
-    },
-    768: {
-      slidesPerView: 'auto',
-      spaceBetween: 0,
-      allowTouchMove: true,
-    }
-  }
-});
-
-// ✅ 手動複製 slides 確保向左可順利循環（Swiper loop 有 bug 時的 workaround）
-if (loopMode) {
-  const wrapper = document.querySelector('.second-products-slider .swiper-wrapper');
-  const clones = Array.from(wrapper.children).map(child => child.cloneNode(true));
-  clones.forEach(clone => wrapper.appendChild(clone));
-}
-
-
-      // 優化視窗大小改變時的處理
+      // 优化窗口大小改变时的处理
       let resizeTimeout;
       window.addEventListener('resize', function() {
         clearTimeout(resizeTimeout);
@@ -1130,14 +1070,50 @@ if (loopMode) {
         }, 250);
       });
 
-      // Logo 動畫相關代碼
+      // 第二个商品轮播初始化
+      const secondSlides = document.querySelectorAll('.second-products-slider .swiper-slide');
+      const secondSlideCount = secondSlides.length;
+      const loopMode = secondSlideCount >= 6;
+
+      const secondSwiper = new Swiper('.second-products-slider', {
+        slidesPerView: 'auto',
+        spaceBetween: 0,
+        loop: loopMode,
+        loopedSlides: loopMode ? secondSlideCount : 0,
+        watchSlidesProgress: true,
+        preventInteractionOnTransition: true,
+        navigation: {
+          nextEl: '.related-products .swiper-button-next',
+          prevEl: '.related-products .swiper-button-prev',
+        },
+        breakpoints: {
+          320: {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            allowTouchMove: true,
+          },
+          768: {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            allowTouchMove: true,
+          }
+        }
+      });
+
+      if (loopMode) {
+        const wrapper = document.querySelector('.second-products-slider .swiper-wrapper');
+        const clones = Array.from(wrapper.children).map(child => child.cloneNode(true));
+        clones.forEach(clone => wrapper.appendChild(clone));
+      }
+
+      // Logo 动画相关代码
       const heroLogo = document.getElementById('heroLogo');
       const navLogo = document.querySelector('.navbar .logo');
       const heroSection = document.querySelector('.hero-section');
       let ticking = false;
       let lastScrollY = window.scrollY;
 
-      // 獲取導航欄 logo 的位置
+      // 获取导航栏 logo 的位置
       const navLogoRect = navLogo.getBoundingClientRect();
       const navLogoTop = navLogoRect.top + window.scrollY;
 
@@ -1147,14 +1123,14 @@ if (loopMode) {
 
       function updateLogos() {
         const rect = heroSection.getBoundingClientRect();
-        // 增加靈敏度
+        // 增加灵敏度
         const scrollRatio = Math.min(1, Math.max(0, Math.abs(window.scrollY) / (rect.height * 0.3)));
         const easedRatio = easeInOutQuart(scrollRatio);
         
-        // 降低觸發閾值
+        // 降低触發閾值
         if (window.scrollY > 1) {
           const scale = 1 - (easedRatio * 0.85);
-          // 加快移動速度
+          // 加快移动速度
           const moveY = easedRatio * (navLogoTop - window.innerHeight * 0.15);
           
           const transform = `
@@ -1163,7 +1139,7 @@ if (loopMode) {
           `;
           
           heroLogo.style.transform = transform;
-          heroLogo.style.opacity = 1 - (easedRatio * 0.9); // 調整透明度變化
+          heroLogo.style.opacity = 1 - (easedRatio * 0.9); // 调整透明度变化
           
           navLogo.style.opacity = easedRatio;
           navLogo.classList.add('visible');
