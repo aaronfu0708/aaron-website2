@@ -138,6 +138,42 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // 商品輪播初始化
+  const productSliders = document.querySelectorAll('.products-slider');
+  if (productSliders.length) {
+    productSliders.forEach(slider => {
+      new Swiper(slider, {
+        slidesPerView: 'auto',
+        spaceBetween: 30,
+        loop: true,
+        speed: 800,
+        grabCursor: true,
+        navigation: {
+          nextEl: slider.querySelector('.swiper-button-next'),
+          prevEl: slider.querySelector('.swiper-button-prev')
+        },
+        breakpoints: {
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 10
+          },
+          480: {
+            slidesPerView: 2,
+            spaceBetween: 20
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 30
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 30
+          }
+        }
+      });
+    });
+  }
+
   // 側邊選單
   const menuToggle = document.getElementById('menuToggle');
   const navLinks = document.getElementById('navLinks');
