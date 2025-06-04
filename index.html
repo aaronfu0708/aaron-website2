@@ -1010,71 +1010,63 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 初始化第一個輪播
-      const firstSwiper = new Swiper('.featured-section .products-slider', {
-        loop: true,
-        slidesPerView: 'auto',
-        spaceBetween: 20,
-        speed: 4000,
-        allowTouchMove: true,
-        watchSlidesProgress: true,
-        preventInteractionOnTransition: true,
-        autoplay: {
-          delay: 0,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        },
-        breakpoints: {
-          768: {
-            slidesPerView: 'auto',
-            spaceBetween: 30,
-          }
-        },
-        on: {
-          beforeInit: function () {
-            const swiper = this;
-            swiper.classNames.push(`${swiper.params.containerModifierClass}fade`);
-          }
-        }
-      });
+// 第一個商品區輪播（.featured-section .products-slider）
+const firstSlides = document.querySelectorAll('.featured-section .products-slider .swiper-slide');
+const firstSlideCount = firstSlides.length;
 
-      // 停止自動播放
+const firstSwiper = new Swiper('.featured-section .products-slider', {
+  loop: firstSlideCount > 4,
+  loopedSlides: Math.min(4, firstSlideCount),
+  slidesPerView: 'auto',
+  spaceBetween: 20,
+  speed: 4000,
+  allowTouchMove: true,
+  watchSlidesProgress: true,
+  preventInteractionOnTransition: true,
+  autoplay: {
+    delay: 0,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: true,
+  },
+  breakpoints: {
+    768: {
+      slidesPerView: 'auto',
+      spaceBetween: 30,
+    }
+  },
+  on: {
+    beforeInit: function () {
+      this.classNames.push(`${this.params.containerModifierClass}fade`);
+    }
+  }
+});
+
+// Intersection Observer：滑進畫面才播放 autoplay
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      firstSwiper.autoplay.start();
+    } else {
       firstSwiper.autoplay.stop();
+    }
+  });
+}, {
+  threshold: 0.2,
+  rootMargin: '50px'
+});
 
-      // 創建 Intersection Observer
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          console.log('Intersection detected:', entry.isIntersecting);
-          if (entry.isIntersecting) {
-            // 當輪播進入視窗時開始播放
-            console.log('Starting autoplay');
-            firstSwiper.autoplay.start();
-          } else {
-            // 當輪播離開視窗時停止播放
-            console.log('Stopping autoplay');
-            firstSwiper.autoplay.stop();
-          }
-        });
-      }, {
-        threshold: 0.2,
-        rootMargin: '50px' // 增加檢測範圍
-      });
+const sliderElement = document.querySelector('.featured-section .products-slider');
+if (window.innerWidth >= 768 && sliderElement) {
+  observer.observe(sliderElement);
+}
 
-      // 確保元素存在
-      const sliderElement = document.querySelector('.featured-section .products-slider');
-      if (sliderElement) {
-        console.log('Observing slider element');
-        observer.observe(sliderElement);
-      } else {
-        console.log('Slider element not found');
-      }
 
 // 第二個商品輪播（.second-products-slider）初始化，修正無法向左循環問題
 const secondSlides = document.querySelectorAll('.second-products-slider .swiper-slide');
 const secondSlideCount = secondSlides.length;
 const loopMode = secondSlideCount >= 6; // 至少 6 張才能左右都 loop
 
-// ✅ Swiper 實例初始化
+//  Swiper 實例初始化
 const secondSwiper = new Swiper('.second-products-slider', {
   slidesPerView: 'auto',
   spaceBetween: 0,
