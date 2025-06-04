@@ -7,6 +7,7 @@
   <title>AARON-website</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
   <style>
     /* 重置基本樣式 */
     * {
@@ -316,6 +317,9 @@
         object-position: center 20%;
       }
     }
+
+  
+
     /* 特色商品部分 - 更新樣式 */
     .featured-section {
       margin-top: 100px !important;
@@ -477,6 +481,157 @@
     .products-slider .swiper-slide-active {
       opacity: 1;
       transform: scale(1);
+    }
+
+
+/* 第二個商品區*/
+     .related-products {
+      padding: 30px 0;
+      margin-top: 30px;
+      overflow: visible;
+      width: 95vw;
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .second-products-slider {
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .second-products-slider .swiper-wrapper {
+      display: flex;
+      align-items: stretch;
+    }
+
+    .second-products-slider .swiper-slide {
+      height: auto;
+      flex-shrink: 0;
+      width: 240px !important;
+      margin-right: 48px !important;
+    }
+
+    .second-product-card {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .second-product-img-wrap {
+      width: 100%;
+      position: relative;
+      padding-top: 100%;
+      background: #f5f5f5;
+    }
+
+    .second-product-img-wrap img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .second-product-card h3 {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: #333;
+      text-align: center;
+    }
+
+    .second-product-card p {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #666;
+      text-align: center;
+    }
+
+    /* 導航按鈕容器 */
+    .navigation-buttons {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      display: flex;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    /* 導航按鈕樣式 */
+    .navigation-buttons .swiper-button-next,
+    .navigation-buttons .swiper-button-prev {
+      position: static;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid #000;
+      border-radius: 0;
+      color: #000;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .navigation-buttons .swiper-button-next:after,
+    .navigation-buttons .swiper-button-prev:after {
+      font-size: 16px;
+      font-weight: bold;
+      font-family: swiper-icons;
+    }
+
+    /* 手機版樣式調整 */
+    @media screen and (max-width: 768px) {
+      .related-products {
+        padding: 15px 0;
+        width: 100%;
+      }
+      
+      .second-products-slider {
+        padding-left: 60px;
+        padding-right: 20px;
+      }
+
+      .navigation-buttons {
+        display: none;
+      }
+
+      .second-products-slider .swiper-slide {
+        width: 190px !important;
+        margin-right: 30px !important;
+      }
+
+      .second-product-card h3 {
+        margin-top: 14px;
+        font-size: 0.75rem;
+        font-weight: normal;
+        width: 100%;
+      }
+
+      .second-product-card p {
+        margin-top: 6px;
+        font-size: 0.75rem;
+        width: 100%;
+      }
+    }
+
+    @media screen and (max-width: 320px) {
+      .second-products-slider {
+        padding-left: 45px;
+        padding-right: 15px;
+      }
+      
+      .second-products-slider .swiper-slide {
+        width: 120px !important;
+        margin-right: 30px !important;
+      }
     }
   </style>
 </head>
@@ -650,8 +805,6 @@
             </a>
           </div>
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
       </div>
 
       <!-- 手機版網格 -->
@@ -719,6 +872,113 @@
       </h1>
     </section>
 
+    <!-- 第二個商品區 -->
+    <section class="related-products">
+      <div class="navigation-buttons">
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+      <div class="second-products-slider">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2024.jpg&img2=vivi%2025.jpg&name=Crystal%20Drop%20Earrings&price=290" class="product-link">
+              <div class="second-product-card">
+                <div class="second-product-img-wrap">
+                  <img src="vivi 24.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Crystal Drop Earrings</h3>
+                <p>$290</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2020.jpg&img2=vivi%2021.jpg&name=LAriella%20Pendant%20Necklace&price=185" class="product-link">
+              <div class="second-product-card">
+                <div class="second-product-img-wrap">
+                  <img src="vivi 20.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>LAriella Pendant Necklace</h3>
+                <p>$185</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%208.jpg&img2=vivi%209.jpg&name=Man.%20Azul%20Necklace&price=395" class="product-link">
+              <div class="second-product-card">
+                <div class="second-product-img-wrap">
+                  <img src="vivi 8.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Man. Azul Necklace</h3>
+                <p>$395</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%202.jpg&img2=vivi%201.jpg&name=Lucrece%20Earrings&price=270" class="product-link">
+              <div class="second-product-card">
+                <div class="second-product-img-wrap">
+                  <img src="vivi 2.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Lucrece Earrings</h3>
+                <p>$270</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2012.jpg&img2=vivi%2013.jpg&name=Costello%20Sunglasses&price=275" class="product-link">
+              <div class="second-product-card">
+                <div class="second-product-img-wrap">
+                  <img src="vivi 12.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Costello Sunglasses</h3>
+                <p>$275</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2018.jpg&img2=vivi%2019.jpg&name=Diamante%20Heart%20Pendant%20Necklace&price=270" class="product-link">
+              <div class="second-product-card">
+                <div class="second-product-img-wrap">
+                  <img src="vivi 18.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Diamante Heart Pendant</h3>
+                <p>$270</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2022.jpg&img2=vivi%2023.jpg&name=Kitty%20Pendant%20Necklace&price=220" class="product-link">
+              <div class="second-product-card">
+                <div class="second-product-img-wrap">
+                  <img src="vivi 22.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Kitty Pendant Necklace</h3>
+                <p>$220</p>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="product2.html?img1=vivi%2027.jpg&img2=vivi%2026.jpg&name=Pearl%20Necklace&price=310" class="product-link">
+              <div class="second-product-card">
+                <div class="second-product-img-wrap">
+                  <img src="vivi 27.jpg" alt="Featured Product">
+                  <div class="img-overlay"></div>
+                </div>
+                <h3>Pearl Necklace</h3>
+                <p>$310</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- 品牌故事部分 -->
     <section class="brand-story">
       <div class="story-image">
@@ -732,11 +992,114 @@
   <footer class="footer">
     <p>&copy; 2025 Aaron Website</p>
   </footer>
-
   <script src="main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // 初始化第一個輪播
+      const firstSwiper = new Swiper('.featured-section .products-slider', {
+        loop: true,
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        speed: 4000,
+        allowTouchMove: true,
+        watchSlidesProgress: true,
+        preventInteractionOnTransition: true,
+        autoplay: {
+          delay: 0,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 'auto',
+            spaceBetween: 30,
+          }
+        },
+        on: {
+          beforeInit: function () {
+            const swiper = this;
+            swiper.classNames.push(`${swiper.params.containerModifierClass}fade`);
+          }
+        }
+      });
+
+      // 停止自動播放
+      firstSwiper.autoplay.stop();
+
+      // 創建 Intersection Observer
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          console.log('Intersection detected:', entry.isIntersecting);
+          if (entry.isIntersecting) {
+            // 當輪播進入視窗時開始播放
+            console.log('Starting autoplay');
+            firstSwiper.autoplay.start();
+          } else {
+            // 當輪播離開視窗時停止播放
+            console.log('Stopping autoplay');
+            firstSwiper.autoplay.stop();
+          }
+        });
+      }, {
+        threshold: 0.2,
+        rootMargin: '50px' // 增加檢測範圍
+      });
+
+      // 確保元素存在
+      const sliderElement = document.querySelector('.featured-section .products-slider');
+      if (sliderElement) {
+        console.log('Observing slider element');
+        observer.observe(sliderElement);
+      } else {
+        console.log('Slider element not found');
+      }
+
+      // 初始化第二個輪播
+      const secondSwiper = new Swiper('.second-products-slider', {
+        slidesPerView: 'auto',
+        spaceBetween: 0,
+        loop: true,
+        loopedSlides: 8,
+        watchSlidesProgress: true,
+        preventInteractionOnTransition: true,
+        navigation: {
+          nextEl: '.related-products .swiper-button-next',
+          prevEl: '.related-products .swiper-button-prev',
+        },
+        breakpoints: {
+          320: {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            allowTouchMove: true,
+            loop: true,
+            loopedSlides: 8
+          },
+          768: {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            allowTouchMove: true,
+            loop: true,
+            loopedSlides: 8
+          }
+        }
+      });
+
+      // 優化視窗大小改變時的處理
+      let resizeTimeout;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          if (window.innerWidth >= 768) {
+            if (firstSwiper && firstSwiper.autoplay) {
+              firstSwiper.update();
+              firstSwiper.autoplay.start();
+            }
+          }
+        }, 250);
+      });
+
+      // Logo 動畫相關代碼
       const heroLogo = document.getElementById('heroLogo');
       const navLogo = document.querySelector('.navbar .logo');
       const heroSection = document.querySelector('.hero-section');
@@ -794,54 +1157,6 @@
 
       // 初始化
       updateLogos();
-    });
-
-    // 初始化特色商品輪播
-    const productsSwiper = new Swiper('.products-slider', {
-      loop: true,
-      loopFillGroupWithBlank: true,
-      slidesPerView: 'auto',
-      spaceBetween: 30,
-      centeredSlides: false,
-      speed: 10000,
-      allowTouchMove: true,  // 啟用觸控
-      grabCursor: true,      // 顯示抓取游標
-      cssMode: false,
-      autoplay: {
-        delay: 0,
-        disableOnInteraction: false,  // 互動後繼續自動播放
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-        768: {
-          slidesPerView: 4,
-          spaceBetween: 30,
-        }
-      },
-      on: {
-        init: function () {
-          this.$el[0].style.transition = 'transform 10s linear';
-        },
-        beforeTransitionStart: function () {
-          this.$wrapperEl[0].style.transitionTimingFunction = 'linear';
-        },
-        touchStart: function () {
-          // 觸摸開始時暫停自動播放
-          this.autoplay.stop();
-        },
-        touchEnd: function () {
-          // 觸摸結束後延遲 1 秒恢復自動播放
-          setTimeout(() => {
-            this.autoplay.start();
-          }, 1000);
-        }
-      },
-      observer: true,
-      observeParents: true,
-      watchSlidesProgress: true,
     });
   </script>
 </body>
