@@ -1010,15 +1010,30 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-// 第一個商品區輪播（.featured-section .products-slider）
-const firstSlides = document.querySelectorAll('.featured-section .products-slider .swiper-slide');
+// 第一個商品區輪播（auto + loop workaround）
+const firstWrapper = document.querySelector('.featured-section .products-slider .swiper-wrapper');
+const firstSlides = firstWrapper.querySelectorAll('.swiper-slide');
 const firstSlideCount = firstSlides.length;
 
+// 判斷是否啟用 loop（至少 5 張才能向左向右正常）
+const enableLoop = firstSlideCount >= 5;
+
+// 手動複製 slides（防止 loop auto 報錯）
+if (enableLoop) {
+  const clones = [];
+  firstSlides.forEach(slide => {
+    const clone = slide.cloneNode(true);
+    clone.classList.add('cloned-slide');
+    clones.push(clone);
+  });
+  clones.forEach(clone => firstWrapper.appendChild(clone));
+}
+
 const firstSwiper = new Swiper('.featured-section .products-slider', {
-  loop: firstSlideCount > 4,
-  loopedSlides: Math.min(4, firstSlideCount),
-  slidesPerView: 'auto',
+  slidesPerView: 'auto', // ✅ 保留 auto
   spaceBetween: 20,
+  loop: enableLoop,
+  loopedSlides: enableLoop ? firstSlideCount : 0,
   speed: 4000,
   allowTouchMove: true,
   watchSlidesProgress: true,
@@ -1041,7 +1056,7 @@ const firstSwiper = new Swiper('.featured-section .products-slider', {
   }
 });
 
-// Intersection Observer：滑進畫面才播放 autoplay
+// ✅ Intersection Observer 控制 autoplay
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1059,6 +1074,7 @@ const sliderElement = document.querySelector('.featured-section .products-slider
 if (window.innerWidth >= 768 && sliderElement) {
   observer.observe(sliderElement);
 }
+
 
 
 // 第二個商品輪播（.second-products-slider）初始化，修正無法向左循環問題
