@@ -1,5 +1,23 @@
 // 等待 DOM 加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
+  // LOGO動畫初始化
+  const heroLogo = document.querySelector('.hero-logo');
+  const heroLogoText = document.querySelector('.hero-logo-text');
+  
+  if (heroLogo && heroLogoText) {
+    // 確保初始狀態
+    heroLogo.classList.remove('visible');
+    heroLogoText.classList.remove('visible');
+    
+    // 使用 requestAnimationFrame 確保在下一幀添加可見類
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        heroLogo.classList.add('visible');
+        heroLogoText.classList.add('visible');
+      });
+    });
+  }
+
   // 更新購物車數量
   function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -144,9 +162,9 @@ document.addEventListener('DOMContentLoaded', function() {
     productSliders.forEach(slider => {
       new Swiper(slider, {
         slidesPerView: 'auto',
-        spaceBetween: 30,
+        spaceBetween: 48,
         loop: true,
-        speed: 800,
+        speed: 500,
         grabCursor: true,
         navigation: {
           nextEl: slider.querySelector('.swiper-button-next'),
@@ -155,21 +173,47 @@ document.addEventListener('DOMContentLoaded', function() {
         breakpoints: {
           320: {
             slidesPerView: 1,
-            spaceBetween: 10
+            spaceBetween: 20
           },
           480: {
             slidesPerView: 2,
-            spaceBetween: 20
+            spaceBetween: 30
           },
           768: {
             slidesPerView: 3,
-            spaceBetween: 30
+            spaceBetween: 40
           },
           1024: {
             slidesPerView: 4,
-            spaceBetween: 30
+            spaceBetween: 48
+          }
+        },
+        on: {
+          init: function() {
+            // 確保所有連結都是可點擊的
+            const slides = slider.querySelectorAll('.swiper-slide');
+            slides.forEach(slide => {
+              const link = slide.querySelector('.product-link');
+              if (link) {
+                link.style.pointerEvents = 'auto';
+              }
+            });
           }
         }
+      });
+    });
+  }
+
+  // 添加產品連結點擊事件
+  const productLinks = document.querySelectorAll('.product-link');
+  if (productLinks.length) {
+    productLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (!link.href) {
+          e.preventDefault();
+          return;
+        }
+        // 允許正常的連結導航
       });
     });
   }
@@ -226,6 +270,52 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 檢查登入狀態
   checkLoginStatus();
+
+  // 初始化第二個商品輪播
+  const secondProductSlider = document.querySelector('.second-products-slider');
+  if (secondProductSlider) {
+    new Swiper(secondProductSlider, {
+      slidesPerView: 'auto',
+      spaceBetween: 48,
+      loop: true,
+      speed: 800,
+      grabCursor: true,
+      navigation: {
+        nextEl: '.navigation-buttons .swiper-button-next',
+        prevEl: '.navigation-buttons .swiper-button-prev'
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 20
+        },
+        480: {
+          slidesPerView: 2,
+          spaceBetween: 30
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 40
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 48
+        }
+      },
+      on: {
+        init: function() {
+          // 確保所有連結都是可點擊的
+          const slides = secondProductSlider.querySelectorAll('.swiper-slide');
+          slides.forEach(slide => {
+            const link = slide.querySelector('.product-link');
+            if (link) {
+              link.style.pointerEvents = 'auto';
+            }
+          });
+        }
+      }
+    });
+  }
 });
 
 // 檢查登入狀態函數
@@ -309,3 +399,4 @@ if (checkoutForm) {
     localStorage.removeItem("cart");
   });
 }
+
