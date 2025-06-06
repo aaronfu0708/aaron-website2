@@ -2081,7 +2081,6 @@ body.search-open {
   align-items: center;
   font-size: 24px;
   z-index: 2000;
-  /* 確保在最上層 */
   transition: background-color 0.3s, transform 0.3s;
 }
 
@@ -2110,14 +2109,12 @@ body.search-open {
 
 #page-wrapper.active {
   right: 40vw;
-  /* 滑出進入畫面 */
+ 
 }
 
-/* 關鍵！媒體查詢 (Media Query) */
-/* 當螢幕寬度小於等於 768px 時 (真實的手機或平板) */
+
 @media (max-width: 768px) {
 
-  /* 隱藏這個切換按鈕，因為在真實裝置上不需要模擬器 */
   #toggle-view-btn {
     display: none;
   }
