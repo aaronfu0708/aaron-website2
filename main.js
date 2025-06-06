@@ -399,4 +399,43 @@ if (checkoutForm) {
     localStorage.removeItem("cart");
   });
 }
+// --- 手機尺寸切換功能 ---
+ document.addEventListener('DOMContentLoaded', function () {
 
+            // ... 您現有的 DOMContentLoaded 內的程式碼 ...
+
+            
+            const toggleBtn = document.getElementById('toggle-view-btn');
+            const pageWrapper = document.getElementById('page-wrapper');
+
+            // 檢查按鈕和容器是否存在
+            if (toggleBtn && pageWrapper) {
+                const btnIcon = toggleBtn.querySelector('i'); // 取得按鈕中的 icon 元素
+
+                toggleBtn.addEventListener('click', function () {
+                    // 切換 .mobile-view class
+                    pageWrapper.classList.toggle('mobile-view');
+
+                    // 檢查是否處於手機視圖，並切換圖示
+                    const isMobileView = pageWrapper.classList.contains('mobile-view');
+
+                    if (isMobileView) {
+                        // 如果是手機視圖，圖示換成電腦
+                        btnIcon.classList.remove('fa-mobile-screen-button');
+                        btnIcon.classList.add('fa-desktop');
+                        toggleBtn.title = "切換為電腦視圖";
+                    } else {
+                        // 如果是電腦視圖，圖示換回手機
+                        btnIcon.classList.remove('fa-desktop');
+                        btnIcon.classList.add('fa-mobile-screen-button');
+                        toggleBtn.title = "切換為手機視圖";
+                    }
+                });
+            }
+        });
+        const toggleBtn = document.getElementById('toggle-view-btn');
+        const wrapper = document.getElementById('page-wrapper');
+
+        toggleBtn.addEventListener('click', () => {
+            wrapper.classList.toggle('active');
+        });

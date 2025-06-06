@@ -1,4 +1,9 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
   color: #222;
@@ -27,13 +32,19 @@ main {
   top: 0;
   z-index: 100;
 }
-.navbar-left, .navbar-right {
+
+.navbar-left,
+.navbar-right {
   display: flex;
   align-items: center;
   gap: 14px;
   min-width: 140px;
 }
-.navbar-right { justify-content: flex-end; }
+
+.navbar-right {
+  justify-content: flex-end;
+}
+
 .menu-toggle {
   display: block;
   cursor: pointer;
@@ -46,6 +57,7 @@ main {
   z-index: 2;
   padding: 0;
 }
+
 .hamburger-line {
   display: block;
   width: 100%;
@@ -55,20 +67,24 @@ main {
   left: 0;
   transition: all 0.6s ease;
 }
+
 .hamburger-line:first-child {
   top: 0;
   width: 26px;
 }
+
 .hamburger-line:nth-child(2) {
   top: 50%;
   transform: translateY(-50%);
   width: 20px;
   left: 6px;
 }
+
 .hamburger-line:last-child {
   bottom: 0;
   width: 26px;
 }
+
 .icon-btn {
   display: flex;
   align-items: center;
@@ -77,6 +93,7 @@ main {
   padding: 8px;
   position: relative;
 }
+
 .cart-count {
   position: absolute;
   top: -8px;
@@ -92,12 +109,17 @@ main {
   font-size: 12px;
   font-weight: bold;
 }
-.icon-btn:hover { color: #bfa37c; }
+
+.icon-btn:hover {
+  color: #bfa37c;
+}
+
 .icon-img {
   width: 24px;
   height: 24px;
   vertical-align: middle;
 }
+
 .logo {
   font-size: 2.5rem;
   font-weight: 300;
@@ -115,14 +137,16 @@ main {
 /* 側邊選單 */
 .nav-links {
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   height: 100vh;
-  width: 80vw; max-width: 320px;
+  width: 80vw;
+  max-width: 320px;
   background: #fff;
   flex-direction: column;
   gap: 0;
   display: flex;
-  box-shadow: 2px 0 16px rgba(0,0,0,0.10);
+  box-shadow: 2px 0 16px rgba(0, 0, 0, 0.10);
   border-radius: 0 16px 16px 0;
   z-index: 500;
   transform: translateX(-100%);
@@ -130,11 +154,13 @@ main {
   pointer-events: none;
   opacity: 0;
 }
+
 .nav-links.open {
   transform: translateX(0);
   pointer-events: auto;
   opacity: 1;
 }
+
 .nav-links a {
   font-family: "Century Gothic", "Futura", "Microsoft JhengHei", sans-serif;
   text-decoration: none;
@@ -145,8 +171,15 @@ main {
   text-align: left;
   transition: color 0.6s;
 }
-.nav-links a:last-child { border-bottom: none; }
-.nav-links a:hover { color: #bfa37c; }
+
+.nav-links a:last-child {
+  border-bottom: none;
+}
+
+.nav-links a:hover {
+  color: #bfa37c;
+}
+
 .nav-close {
   display: block;
   width: 100%;
@@ -160,12 +193,16 @@ main {
   border-bottom: 1px solid #eee;
   z-index: 600;
 }
-body.menu-open { overflow: hidden; }
+
+body.menu-open {
+  overflow: hidden;
+}
 
 /* 產品區塊 */
-.products-section { 
-  padding: 120px 0 60px 0 !important; 
+.products-section {
+  padding: 120px 0 60px 0 !important;
 }
+
 .products-section h4 {
   font-weight: normal;
   text-align: center;
@@ -174,6 +211,7 @@ body.menu-open { overflow: hidden; }
   letter-spacing: 2px;
   color: #222;
 }
+
 .products {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -182,15 +220,18 @@ body.menu-open { overflow: hidden; }
   max-width: 1400px;
   margin: 0 auto;
 }
+
 .product-link {
   grid-column: span 2;
   text-decoration: none;
   display: block;
   transition: transform 0.3s ease;
 }
+
 .product-link:hover {
   transform: translateY(-5px);
 }
+
 .hero-video {
   grid-column: 5 / span 4;
   grid-row: 1 / span 2;
@@ -201,11 +242,13 @@ body.menu-open { overflow: hidden; }
   display: flex;
   flex-direction: column;
 }
+
 .hero-video video {
   width: 100%;
   height: 84%;
   object-fit: cover;
 }
+
 .hero-video-description {
   width: 100%;
   padding: 20px 0;
@@ -216,6 +259,7 @@ body.menu-open { overflow: hidden; }
   flex-direction: column;
   justify-content: center;
 }
+
 .hero-video-description h2 {
   font-size: 1.8rem;
   font-weight: normal;
@@ -223,11 +267,13 @@ body.menu-open { overflow: hidden; }
   letter-spacing: 1px;
   color: #222;
 }
+
 .hero-video-description p {
   font-size: 1.1rem;
   line-height: 1.5;
   color: #666;
 }
+
 .product-card {
   width: 100%;
   text-align: center;
@@ -237,29 +283,35 @@ body.menu-open { overflow: hidden; }
   align-items: center;
   cursor: pointer;
 }
+
 .product-card img {
   width: 100%;
   height: 380px;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
+
 .product-card:hover img {
   transform: scale(1.05);
 }
+
 .product-card h3 {
   font-weight: normal;
   font-size: 0.95rem;
   margin: 8px 0;
   color: #333;
 }
+
 .product-card p {
   font-size: 0.9rem;
   color: #666;
   padding: 10px;
 }
+
 .product-link h3 {
   text-decoration: none;
 }
+
 .product-card .btn {
   display: inline-block;
   padding: 8px 24px;
@@ -270,7 +322,12 @@ body.menu-open { overflow: hidden; }
   margin-bottom: 18px;
   transition: background 0.2s;
 }
-.product-card .btn:hover { background: #bfa37c; color: #fff; }
+
+.product-card .btn:hover {
+  background: #bfa37c;
+  color: #fff;
+}
+
 /* 登入頁 */
 .login-section {
   background: #faf7f2;
@@ -280,6 +337,7 @@ body.menu-open { overflow: hidden; }
   justify-content: center;
   align-items: center;
 }
+
 .custom-login {
   flex-direction: column;
   align-items: center;
@@ -288,21 +346,28 @@ body.menu-open { overflow: hidden; }
   padding-top: 32px;
   background: #fff;
 }
+
 .track-order {
   text-align: center;
   margin-bottom: 36px;
 }
+
 .track-order i {
   font-size: 2rem;
   margin-bottom: 8px;
   color: #222;
 }
+
 .track-title {
   font-weight: bold;
   font-size: 1rem;
   letter-spacing: 1px;
 }
-.track-title a { color: #222; }
+
+.track-title a {
+  color: #222;
+}
+
 .login-card.custom-card {
   box-shadow: none;
   border-radius: 0;
@@ -314,12 +379,14 @@ body.menu-open { overflow: hidden; }
   width: 100%;
   margin: 0 auto 24px auto;
 }
+
 .login-tabs {
   display: flex;
   justify-content: center;
   margin-bottom: 28px;
   border-bottom: 1.5px solid #eee;
 }
+
 .login-tabs .tab {
   background: none;
   border: none;
@@ -332,11 +399,16 @@ body.menu-open { overflow: hidden; }
   border-bottom: 2px solid transparent;
   transition: color 0.2s, border 0.2s;
 }
+
 .login-tabs .tab.active {
   color: #222;
   border-bottom: 2px solid #222;
 }
-.input-group { margin-bottom: 20px; }
+
+.input-group {
+  margin-bottom: 20px;
+}
+
 .input-group label {
   display: block;
   font-size: 1rem;
@@ -344,6 +416,7 @@ body.menu-open { overflow: hidden; }
   margin-bottom: 6px;
   font-weight: 400;
 }
+
 .input-group input {
   width: 100%;
   border: none;
@@ -354,7 +427,11 @@ body.menu-open { overflow: hidden; }
   outline: none;
   transition: border 0.2s;
 }
-.input-group input:focus { border-bottom: 1.5px solid #222; }
+
+.input-group input:focus {
+  border-bottom: 1.5px solid #222;
+}
+
 .login-options {
   display: flex;
   justify-content: space-between;
@@ -362,6 +439,7 @@ body.menu-open { overflow: hidden; }
   margin-bottom: 28px;
   font-size: 0.99rem;
 }
+
 .remember-me {
   display: flex;
   align-items: center;
@@ -369,11 +447,13 @@ body.menu-open { overflow: hidden; }
   cursor: pointer;
   user-select: none;
 }
+
 .forgot-link {
   color: #222;
   text-decoration: underline;
   font-size: 0.99rem;
 }
+
 .btn.custom-btn {
   background: #000;
   color: #fff;
@@ -387,7 +467,11 @@ body.menu-open { overflow: hidden; }
   width: 100%;
   transition: background 0.2s;
 }
-.btn.custom-btn:hover { background: #222; }
+
+.btn.custom-btn:hover {
+  background: #222;
+}
+
 .login-features {
   display: flex;
   justify-content: space-between;
@@ -399,10 +483,12 @@ body.menu-open { overflow: hidden; }
   text-align: center;
   flex-wrap: wrap;
 }
+
 .login-features div {
   flex: 1 1 0;
   min-width: 0;
 }
+
 .login-features i {
   font-size: 1.3rem;
   margin-bottom: 6px;
@@ -441,20 +527,24 @@ body.menu-open { overflow: hidden; }
   color: #666;
   margin-top: auto;
 }
+
 .footer p {
   margin: 0;
 }
+
 .product-card .product-img-wrap {
   position: relative;
   width: 100%;
   overflow: hidden;
 }
+
 .product-card .product-img-wrap img {
-  transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+  transition: transform 0.4s cubic-bezier(.4, 0, .2, 1);
   display: block;
   width: 100%;
   height: auto;
 }
+
 .product-card .product-img-wrap .img-overlay {
   position: absolute;
   top: 0;
@@ -465,87 +555,102 @@ body.menu-open { overflow: hidden; }
   opacity: 0;
   transition: opacity 0.3s ease;
 }
+
 .product-card:hover .product-img-wrap img {
   transform: scale(1.08);
 }
+
 .product-card:hover .product-img-wrap .img-overlay {
   opacity: 1;
 }
+
 .featured-products-section {
   padding: 40px 0 60px 0;
   background: #fafafa;
 }
+
 .featured-products-swiper {
   width: 100%;
   padding-bottom: 32px;
 }
+
 .featured-products-swiper .swiper-slide {
   display: flex;
   justify-content: center;
   align-items: stretch;
   height: auto;
 }
+
 #model {
   display: flex;
 }
+
 #model .model {
   width: 40%;
-  height: 60%;  
+  height: 60%;
   margin: 50px;
 }
+
 /* 響應式設計 */
 @media (max-width: 1200px) {
   .products {
     grid-template-columns: repeat(6, 1fr);
   }
-  
+
   .hero-video {
     grid-column: 4 / span 3;
   }
 }
+
 @media (max-width: 900px) {
   .products {
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     padding: 0 24px;
   }
-  
+
   .hero-video {
     grid-column: 3 / span 2;
   }
-  
+
   .product-link {
     grid-column: span 1;
   }
+
   .product-detail {
     flex-direction: column;
     align-items: center;
     padding: 24px 8vw;
     gap: 28px;
   }
+
   .product-images img#main-img {
     width: 90vw;
     max-width: 340px;
     height: 340px;
   }
+
   .hero-video-description {
     padding: 20px 0;
   }
+
   .hero-video-description h2 {
     font-size: 1.5rem;
     margin-bottom: 8px;
   }
+
   .hero-video-description p {
     font-size: 1rem;
   }
 }
+
 @media (max-width: 600px) {
   .products {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     padding: 0 16px;
   }
-  
+
   .hero-video {
     grid-column: 1 / span 2;
     grid-row: auto;
@@ -596,10 +701,12 @@ body.menu-open { overflow: hidden; }
     height: auto;
     aspect-ratio: 1;
   }
+
   .navbar {
     flex-direction: row;
     padding: 20px 8px;
   }
+
   .logo {
     position: absolute;
     left: 50%;
@@ -612,55 +719,69 @@ body.menu-open { overflow: hidden; }
     display: block;
     letter-spacing: 2px;
   }
-  .navbar-left, .navbar-right {
+
+  .navbar-left,
+  .navbar-right {
     min-width: 60px;
     gap: 6px;
     align-items: center;
   }
+
   .menu-toggle {
     width: 24px;
     height: 16px;
     margin-right: 4px;
     margin-left: 4px;
   }
+
   .hamburger-line {
     height: 2px;
   }
+
   .hamburger-line:first-child {
     width: 24px;
   }
+
   .hamburger-line:nth-child(2) {
     width: 18px;
     left: 6px;
   }
+
   .hamburger-line:last-child {
     width: 24px;
   }
+
   .navbar .fas {
     font-size: 1.8rem;
     font-weight: 100;
   }
+
   .icon-img {
     width: 24px;
     height: 24px;
   }
+
   .nav-links a {
     font-size: 0.95rem;
     padding: 14px 20px;
   }
+
   .login-section {
     padding-left: 16px;
     padding-right: 16px;
   }
+
   .login-card.custom-card {
     min-width: unset;
     max-width: 98vw;
   }
+
   .login-features {
     gap: 4px;
     font-size: 0.9rem;
     flex-wrap: wrap;
   }
+
   .login-features div {
     flex: 1 1 50%;
     min-width: 120px;
@@ -669,38 +790,48 @@ body.menu-open { overflow: hidden; }
     flex-direction: column;
     align-items: center;
   }
+
   .product-detail-section {
     padding: 18px 0;
   }
+
   .product-detail {
     padding: 18px 4vw;
     border-radius: 10px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
   }
+
   .product-images img#main-img {
     width: 80vw;
     max-width: 260px;
     height: 220px;
   }
+
   .product-images .thumb-img {
     width: 44px;
     height: 54px;
   }
+
   .hero-carousel .swiper-slide img {
     height: 180px;
   }
-  #tab-signin{
-  font-size: 1rem;
+
+  #tab-signin {
+    font-size: 1rem;
   }
-  #tab-create{
-  font-size: 1rem;
+
+  #tab-create {
+    font-size: 1rem;
   }
-  #login-btn{
-  font-size: 1rem;
+
+  #login-btn {
+    font-size: 1rem;
   }
+
   .featured-products-section {
     padding: 24px 0 36px 0;
   }
+
   .featured-products-swiper .swiper-slide {
     display: flex;
     justify-content: center;
@@ -726,16 +857,19 @@ body.menu-open { overflow: hidden; }
     height: 100%;
     object-fit: cover;
   }
-  #model{
+
+  #model {
     display: block;
   }
+
   #model .model {
-  width: 90vw;
-  height: 95vw;  
-  gap: 10px;
-  padding-left: 5vw;
-  padding-right: 5vw;
-}
+    width: 90vw;
+    height: 95vw;
+    gap: 10px;
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+
   .swiper-button-next,
   .swiper-button-prev {
     transform: scale(0.5);
@@ -750,12 +884,12 @@ body.menu-open { overflow: hidden; }
   .slide-content h2 {
     font-size: 1.4rem;
   }
-  
+
   .slide-content p {
     font-size: 0.9rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .cta-button {
     padding: 10px 24px;
     font-size: 0.9rem;
@@ -823,7 +957,7 @@ body.menu-open { overflow: hidden; }
   .brand-story {
     margin: 40px 0;
   }
-  
+
   .story-image {
     height: 60vh;
   }
@@ -833,7 +967,7 @@ body.menu-open { overflow: hidden; }
   .brand-story {
     margin: 30px 0;
   }
-  
+
   .story-image {
     height: 50vh;
   }
@@ -943,7 +1077,7 @@ body.menu-open { overflow: hidden; }
   width: 100%;
   height: 400px;
   object-fit: cover;
-  transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+  transition: transform 0.4s cubic-bezier(.4, 0, .2, 1);
   display: block;
 }
 
@@ -953,9 +1087,9 @@ body.menu-open { overflow: hidden; }
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.5);
   opacity: 0;
-  transition: opacity 0.4s cubic-bezier(.4,0,.2,1);
+  transition: opacity 0.4s cubic-bezier(.4, 0, .2, 1);
   pointer-events: none;
 }
 
@@ -1009,7 +1143,7 @@ body.menu-open { overflow: hidden; }
   width: 100%;
   height: 300px;
   object-fit: cover;
-  transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+  transition: transform 0.4s cubic-bezier(.4, 0, .2, 1);
   display: block;
 }
 
@@ -1019,9 +1153,9 @@ body.menu-open { overflow: hidden; }
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.5);
   opacity: 0;
-  transition: opacity 0.4s cubic-bezier(.4,0,.2,1);
+  transition: opacity 0.4s cubic-bezier(.4, 0, .2, 1);
   pointer-events: none;
 }
 
@@ -1141,7 +1275,7 @@ body.menu-open { overflow: hidden; }
   .brand-story {
     margin: 40px 0;
   }
-  
+
   .story-image {
     height: 60vh;
   }
@@ -1151,7 +1285,7 @@ body.menu-open { overflow: hidden; }
   .brand-story {
     margin: 30px 0;
   }
-  
+
   .story-image {
     height: 50vh;
   }
@@ -1164,7 +1298,12 @@ body.menu-open { overflow: hidden; }
 }
 
 /* 标题文字 */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Century Gothic", "Futura", "Microsoft JhengHei", sans-serif;
   font-weight: normal;
 }
@@ -1185,7 +1324,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
   pointer-events: none;
   opacity: 0;
-  box-shadow: 2px 0 16px rgba(0,0,0,0.10);
+  box-shadow: 2px 0 16px rgba(0, 0, 0, 0.10);
   border-radius: 0 16px 16px 0;
 }
 
@@ -1291,22 +1430,22 @@ h1, h2, h3, h4, h5, h6 {
   .search-content {
     padding: 0;
   }
-  
+
   .search-content h2 {
     font-size: 1.2rem;
     margin: 20px;
   }
-  
+
   .search-input-wrap {
     margin: 0 20px 20px 20px;
   }
-  
+
   .search-results {
     padding: 0 20px 20px 20px;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
-  
+
   .search-result-item img {
     height: 180px;
   }
@@ -1431,16 +1570,16 @@ body.search-open {
   .products-slider {
     padding: 0 16px;
   }
-  
+
   .products-slider .swiper-slide {
     width: calc((100% - 16px) / 2) !important;
     margin-right: 16px !important;
   }
-  
+
   .products-slider .product-img-wrap {
     margin-bottom: 8px;
   }
-  
+
   .products-slider img {
     height: auto;
     aspect-ratio: 1;
@@ -1477,7 +1616,8 @@ body.search-open {
 }
 
 .showcase-grid {
-  width: 92vw;  /* 100vw - 4vw*2 = 92vw */
+  width: 92vw;
+  /* 100vw - 4vw*2 = 92vw */
   margin: 0 auto;
   display: flex;
   gap: 30px;
@@ -1520,7 +1660,7 @@ body.search-open {
   .fashion-showcase {
     padding: 30px 15px;
   }
-  
+
   .showcase-grid {
     width: 100%;
     gap: 20px;
@@ -1569,7 +1709,8 @@ body.search-open {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.title-top, .title-bottom {
+.title-top,
+.title-bottom {
   display: block;
   line-height: 1;
 }
@@ -1618,10 +1759,11 @@ body.search-open {
 }
 
 @media (max-width: 768px) {
-  .products-section { 
+  .products-section {
     padding: 40px 0 60px 0 !important;
     margin-top: 20px;
   }
+
   .products-section h4 {
     font-size: 1.3rem;
     margin-bottom: 32px;
@@ -1646,7 +1788,7 @@ body.search-open {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  
+
   /* 改善手機版點擊區域 */
   .icon-btn {
     padding: 12px 8px;
@@ -1656,18 +1798,18 @@ body.search-open {
     align-items: center;
     justify-content: center;
   }
-  
+
   /* 調整確認對話框樣式 */
   .confirm-dialog .confirm-content {
     width: 85%;
     max-width: 280px;
     padding: 20px;
   }
-  
+
   .confirm-dialog .confirm-buttons {
     gap: 8px;
   }
-  
+
   .confirm-dialog .confirm-btn {
     flex: 1;
     min-height: 44px;
@@ -1917,4 +2059,66 @@ body.search-open {
 .hero-logo-text.visible {
   opacity: 1;
   transform: translateZ(0) scale(1);
+}
+
+/* --- 手機尺寸切換功能 CSS --- */
+
+/* 切換按鈕的樣式 */
+#toggle-view-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  z-index: 2000;
+  /* 確保在最上層 */
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#toggle-view-btn:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+#page-wrapper {
+  position: fixed;
+  top: 50px;
+  right: -400px;
+  /* 藏在畫面右側 */
+  transition: right 0.5s ease;
+  z-index: 1000;
+}
+
+#page-wrapper iframe {
+  width: 375px;
+  height: 700px;
+  border-radius: 40px;
+  overflow-x: none;
+  overflow-y: auto;
+  border: #222 10px solid;
+}
+
+#page-wrapper.active {
+  right: 40vw;
+  /* 滑出進入畫面 */
+}
+
+/* 關鍵！媒體查詢 (Media Query) */
+/* 當螢幕寬度小於等於 768px 時 (真實的手機或平板) */
+@media (max-width: 768px) {
+
+  /* 隱藏這個切換按鈕，因為在真實裝置上不需要模擬器 */
+  #toggle-view-btn {
+    display: none;
+  }
 }
